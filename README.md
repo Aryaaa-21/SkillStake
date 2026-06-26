@@ -1,8 +1,8 @@
-# SkillStake
+# [SkillStake](https://skill-stake-nine.vercel.app/)
 
 Stake Your Commitment. Earn Your Reputation.
 
-🎥 **[Watch the Stellar Demo Video](https://drive.google.com/file/d/1FPQ8ylOTUSRWDOt0Xp05FRZA5ZQVcVka/view)**
+🎥 **[Watch the Stellar Demo Video](https://drive.google.com/file/d/1dKvpwa2mqmBhjjBZvW3tZhzH1Timqc0j/view?usp=drivesdk)**
 
 ## Problem Statement
 
@@ -266,7 +266,8 @@ The SkillStake application consists entirely of a static frontend client communi
 <img width="379" height="829" alt="image" src="https://github.com/user-attachments/assets/a35c835f-1389-4b5f-9515-e49ae95d3a32" />
 
 ### CI/CD Pipeline
-<img width="1917" height="894" alt="image" src="https://github.com/user-attachments/assets/a4fa1124-8e97-47d0-a79d-915fb380f19d" />
+
+<img width="1897" height="933" alt="image" src="https://github.com/user-attachments/assets/bc4e26c3-2f43-40ce-914e-c11d1d476711" />
 
 ---
 
