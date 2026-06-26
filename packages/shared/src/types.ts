@@ -35,3 +35,5 @@ export type LevelName =
   | "Gold"
   | "Platinum"
   | "Diamond";
+
+// Types shared between frontend and contract
