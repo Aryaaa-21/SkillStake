@@ -211,7 +211,7 @@ SkillStake supports the following Stellar web wallets for signing transactions a
 All logic, state storage, and token custody are handled by a custom-written Soroban Smart Contract deployed on the Stellar test network.
 
 - **Network**: Stellar Testnet
-- **Deployed Contract ID**: `CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4`
+- **Deployed Contract ID**: `CDUVOWAI5HYXXC3XCXS6NMWSCXL7WHHIEHYRHME2E4DWYUPRSJ5JBEW5`
 - **Contract Deployment Status**: Deployed, Active, and Fully Verified.
 - **Contract Interface & Methods**:
   - `initialize(admin: Address, verification_threshold: u32, token: Address)`: Instantiates the contract state, reward pool, and configuration parameters.
@@ -230,7 +230,8 @@ All logic, state storage, and token custody are handled by a custom-written Soro
 The SkillStake application consists entirely of a static frontend client communicating with deployed blockchain contracts:
 
 - **Smart Contract Deployment**:
-  - Deployed on **Stellar Testnet** under ID `CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4`.
+  - **Contract Network**: Stellar Testnet
+  - **Contract ID**: `CDUVOWAI5HYXXC3XCXS6NMWSCXL7WHHIEHYRHME2E4DWYUPRSJ5JBEW5`
   - Escrow accounts and reward pool balances are tracked transparently on the public test ledger.
 - **Frontend Hosting**:
   - Deployed on **Vercel** as a client-only static bundle.
