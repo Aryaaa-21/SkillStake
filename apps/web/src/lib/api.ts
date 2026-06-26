@@ -12,7 +12,7 @@ export const api = {
     rpcUrl: import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org",
     horizonUrl: import.meta.env.VITE_HORIZON_URL || "https://horizon-testnet.stellar.org",
     explorerBase: "https://stellar.expert/explorer/testnet/tx",
-    contractId: import.meta.env.VITE_CONTRACT_ID || "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4"
+    contractId: import.meta.env.VITE_CONTRACT_ID || "CDUVOWAI5HYXXC3XCXS6NMWSCXL7WHHIEHYRHME2E4DWYUPRSJ5JBEW5"
   }),
 
   balance: async (address: string) => {

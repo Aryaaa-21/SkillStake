@@ -3,7 +3,7 @@ import * as StellarSdk from "@stellar/stellar-sdk";
 const HORIZON_URL = import.meta.env.VITE_HORIZON_URL || "https://horizon-testnet.stellar.org";
 const SOROBAN_RPC_URL = import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
 const NETWORK_PASSPHRASE = import.meta.env.VITE_STELLAR_NETWORK_PASSPHRASE || "Test SDF Network ; September 2015";
-const CONTRACT_ID = import.meta.env.VITE_CONTRACT_ID || "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4";
+const CONTRACT_ID = import.meta.env.VITE_CONTRACT_ID || "CDUVOWAI5HYXXC3XCXS6NMWSCXL7WHHIEHYRHME2E4DWYUPRSJ5JBEW5";
 
 export const horizonServer = new StellarSdk.Horizon.Server(HORIZON_URL);
 export const sorobanServer = new StellarSdk.rpc.Server(SOROBAN_RPC_URL);
