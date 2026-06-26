@@ -259,3 +259,5 @@ impl SkillStakeContract {
 
 #[cfg(test)]
 mod test;
+
+// Core smart contract logic
