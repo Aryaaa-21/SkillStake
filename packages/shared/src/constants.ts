@@ -30,3 +30,5 @@ export const CHALLENGE_STATUSES = [
 ] as const;
 
 export const VOTE_DECISIONS = ["approve", "reject"] as const;
+
+// Shared constants across workspaces
