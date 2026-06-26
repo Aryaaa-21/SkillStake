@@ -1022,3 +1022,5 @@ export function NotFoundPage() {
     </div>
   );
 }
+
+// Enhance accessibility for screen readers
