@@ -34,6 +34,18 @@ interface WalletState {
   initializeSession: () => Promise<void>;
 }
 
+const withTimeout = <T>(promise: Promise<T>, ms: number, errorMessage: string): Promise<T> => {
+  let timeoutId: any;
+  const timeoutPromise = new Promise<T>((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error(errorMessage));
+    }, ms);
+  });
+  return Promise.race([promise, timeoutPromise]).finally(() => {
+    clearTimeout(timeoutId);
+  });
+};
+
 export const useWalletStore = create<WalletState>((set) => ({
   provider: null,
   address: null,
@@ -45,34 +57,43 @@ export const useWalletStore = create<WalletState>((set) => ({
   connectFreighter: async () => {
     set({ connecting: true, error: null });
     try {
-      let publicKey = "";
-      const hasFreighter = await isConnected();
-      if (hasFreighter) {
-        const result = await requestAccess();
-        if (result && typeof result === "object") {
-          const resObj = result as any;
-          if (resObj.error) {
-            throw new Error(typeof resObj.error === "string" ? resObj.error : resObj.error.message || "Failed to connect");
+      const getPublicKeyPromise = async () => {
+        let publicKey = "";
+        const hasFreighter = await isConnected();
+        if (hasFreighter) {
+          const result = await requestAccess();
+          if (result && typeof result === "object") {
+            const resObj = result as any;
+            if (resObj.error) {
+              throw new Error(typeof resObj.error === "string" ? resObj.error : resObj.error.message || "Failed to connect");
+            }
+            if (resObj.address) {
+              publicKey = resObj.address;
+            }
+          } else if (typeof result === "string") {
+            publicKey = result;
           }
-          if (resObj.address) {
-            publicKey = resObj.address;
+        }
+
+        if (!publicKey && typeof window !== "undefined") {
+          const fApi = window.freighterApi || (window as any).freighter;
+          if (fApi) {
+            const res = await fApi.requestAccess();
+            publicKey = typeof res === "string" ? res : (res && (res.address || res.publicKey)) || (await fApi.getPublicKey());
           }
-        } else if (typeof result === "string") {
-          publicKey = result;
         }
-      }
 
-      if (!publicKey && typeof window !== "undefined") {
-        const fApi = window.freighterApi || (window as any).freighter;
-        if (fApi) {
-          const res = await fApi.requestAccess();
-          publicKey = typeof res === "string" ? res : (res && (res.address || res.publicKey)) || (await fApi.getPublicKey());
+        if (!publicKey) {
+          throw new Error("Freighter wallet is not installed or detected in your browser.");
         }
-      }
+        return publicKey;
+      };
 
-      if (!publicKey) {
-        throw new Error("Freighter wallet is not installed or detected in your browser.");
-      }
+      const publicKey = await withTimeout(
+        getPublicKeyPromise(),
+        10000,
+        "Freighter connection timed out. Please make sure Freighter is unlocked and try again."
+      );
 
       localStorage.setItem("skillstake_wallet_address", publicKey);
       localStorage.setItem("skillstake_preferred_wallet", "freighter");
@@ -96,8 +117,17 @@ export const useWalletStore = create<WalletState>((set) => ({
       if (!window.albedo) {
         throw new Error("Albedo is not available");
       }
-      const result = await window.albedo.publicKey({ network: "public" });
-      const publicKey = result.pubkey;
+      
+      const getAlbedoPublicKey = async () => {
+        const result = await window.albedo!.publicKey({ network: "public" });
+        return result.pubkey;
+      };
+
+      const publicKey = await withTimeout(
+        getAlbedoPublicKey(),
+        10000,
+        "Albedo connection timed out. Please unlock your Albedo extension/popup and try again."
+      );
 
       localStorage.setItem("skillstake_wallet_address", publicKey);
       localStorage.setItem("skillstake_preferred_wallet", "albedo");
