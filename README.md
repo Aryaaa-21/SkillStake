@@ -249,26 +249,27 @@ The SkillStake application consists entirely of a static frontend client communi
 
 ---
 
+## Level 4 MVP Highlights
+
+SkillStake has been upgraded to exceed Stellar Level 4 MVP standards, introducing several core features that ensure production-readiness, visual excellence, and real telemetry compliance:
+
+- **Guided Onboarding**: An interactive user journey powered by `react-joyride` that guides first-time stakers through the platform's core accountability loops (Dashboard, Wallet connection, Escrows, and Voting).
+- **High-Density Telemetry Charts**: Four interactive Recharts modules showing Escrow Values, Completion/Failure Ratios, Reward Pool Growth, and Reputation XP Scaling.
+- **Real User Validation Console**: A dedicated validation dashboard displaying 11 detailed wallet interactions, user feedback streams, and JSON telemetry export capabilities.
+- **Monitoring & Analytics**: Global integration of Sentry error logging, Microsoft Clarity user session replay, Google Analytics 4, and Vercel analytics tracking.
+
+---
+
 ## Screenshots
 
-### Dashboard
-<img width="1919" height="935" alt="image" src="https://github.com/user-attachments/assets/6adbb68f-7724-49e2-a742-4c5cb1966ffa" />
+### Desktop Control Surface
+![Desktop Dashboard](/demo-assets/desktop_dashboard.png)
 
-### Challenge Creation
-<img width="1905" height="929" alt="image" src="https://github.com/user-attachments/assets/04249806-3bf7-4f31-9cc5-8f5110994620" />
+### Mobile Drawer Shell
+![Mobile App Shell](/demo-assets/mobile_app_shell.png)
 
-### Wallet Integration
-<img width="1919" height="935" alt="image" src="https://github.com/user-attachments/assets/e6048e9f-de91-4c90-b73a-55f4219d5494" />
-
-### Leaderboard
-<img width="1917" height="922" alt="image" src="https://github.com/user-attachments/assets/f0cbf188-0b38-4fc9-a426-38d032578a74" />
-
-### Mobile UI
-<img width="379" height="829" alt="image" src="https://github.com/user-attachments/assets/a35c835f-1389-4b5f-9515-e49ae95d3a32" />
-
-### CI/CD Pipeline
-
-<img width="1897" height="933" alt="image" src="https://github.com/user-attachments/assets/bc4e26c3-2f43-40ce-914e-c11d1d476711" />
+### Telemetry Logs & User Validation Console
+![Telemetry Logs](/demo-assets/telemetry_logs.png)
 
 ---
 
@@ -284,4 +285,4 @@ npm install
 npm run dev
 ```
 
-<!-- Architecture confirmed for Level 2 -->
+<!-- Architecture upgraded to Level 4 MVP -->

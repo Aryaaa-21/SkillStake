@@ -7,6 +7,8 @@ import { ThemeProvider } from "./lib/theme";
 import { api } from "./lib/api";
 import { AppShell } from "./layout";
 import { useWallet } from "./lib/wallet";
+import { monitoring } from "./lib/monitoring";
+import { analytics } from "./lib/analytics";
 import {
   ActiveChallengesPage,
   AdminDashboardPage,
@@ -21,6 +23,8 @@ import {
   RewardPoolPage,
   SettingsPage,
   WalletPage,
+  LivePage,
+  UserValidationPage,
 } from "./pages";
 
 function AppNetworkGuard() {
@@ -32,6 +36,8 @@ export function App() {
   const wallet = useWallet();
 
   useEffect(() => {
+    monitoring.init();
+    analytics.init();
     wallet.initializeSession();
   }, []);
 
@@ -44,6 +50,7 @@ export function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/live" element={<LivePage />} />
               <Route path="/wallet" element={<WalletPage />} />
               <Route path="/create" element={<CreateChallengePage />} />
               <Route path="/challenge/:id" element={<ChallengeDetailsPage />} />
@@ -53,6 +60,7 @@ export function App() {
               <Route path="/leaderboard" element={<LeaderboardPage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/validation" element={<UserValidationPage />} />
               <Route path="/admin" element={<AdminDashboardPage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/404" element={<NotFoundPage />} />

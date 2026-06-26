@@ -7,6 +7,8 @@ import { useWallet } from "./lib/wallet";
 import { api } from "./lib/api";
 import { formatAmount, truncateAddress } from "./lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import { Joyride, type Step, type EventData, STATUS } from "react-joyride";
+import { useDappStore } from "./lib/store";
 import {
   LayoutDashboard,
   Wallet,
@@ -24,19 +26,23 @@ import {
   Sparkles,
   Sun,
   Moon,
-  Laptop
+  Laptop,
+  Activity,
+  ShieldCheck
 } from "lucide-react";
 
+// Expand navigation links list to 10 requested screens + developer tools
 const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/live", label: "Live Feed", icon: Activity },
   { to: "/wallet", label: "Wallet", icon: Wallet },
   { to: "/create", label: "Create Challenge", icon: PlusCircle },
   { to: "/active", label: "Active Challenges", icon: Trophy },
-  { to: "/completed", label: "Completed Challenges", icon: CheckCircle2 },
   { to: "/reward-pool", label: "Reward Pool", icon: Coins },
   { to: "/leaderboard", label: "Leaderboard", icon: BarChart3 },
   { to: "/notifications", label: "Notifications", icon: Bell },
   { to: "/profile", label: "Profile", icon: User },
+  { to: "/validation", label: "User Validation", icon: ShieldCheck },
   { to: "/admin", label: "Admin Dashboard", icon: ShieldAlert },
   { to: "/settings", label: "Settings", icon: Settings },
 ];
@@ -47,6 +53,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   const wallet = useWallet();
   const networkQuery = useQuery({ queryKey: ["network"], queryFn: api.network });
   const rewardPoolQuery = useQuery({ queryKey: ["reward-pool"], queryFn: api.rewardPool });
+
+  const onboardingCompleted = useDappStore((state) => state.onboardingCompleted);
+  const setOnboardingCompleted = useDappStore((state) => state.setOnboardingCompleted);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -78,6 +87,37 @@ export function AppShell({ children }: { children: ReactNode }) {
     setThemeMode(themeMode === "dark" ? "light" : themeMode === "light" ? "auto" : "dark");
   };
 
+  // Guided onboarding steps definition
+  const tourSteps: Step[] = [
+    {
+      target: "body",
+      content: "Welcome to SkillStake! A decentralized accountability dApp built on Stellar Soroban contracts. Let's take a quick tour.",
+      placement: "center"
+    },
+    {
+      target: "#tour-step-stats",
+      content: "Review key metrics like total XLM staked, completion success rate, habit streaks, and validator reputation.",
+      placement: "bottom"
+    },
+    {
+      target: "#tour-step-charts",
+      content: "Interact with live charting data tracking challenge activity, pool sizes, and reputation growth.",
+      placement: "top"
+    },
+    {
+      target: ".sidebar-nav-container",
+      content: "Use the control nav sidebar to connect your Freighter/Albedo wallet, stake XLM, submit proof, or audit logs.",
+      placement: "right"
+    }
+  ];
+
+  const handleJoyrideCallback = (data: EventData) => {
+    const { status } = data;
+    if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
+      setOnboardingCompleted(true);
+    }
+  };
+
   const renderSidebarContent = () => (
     <div className="flex h-full flex-col p-6">
       <div className="mb-8">
@@ -88,7 +128,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <p className="mt-2 text-xs text-muted leading-relaxed">Stake XLM on goals, verify progress, and earn XP.</p>
       </div>
 
-      <nav className="flex-1 space-y-1 overflow-y-auto pr-2 safe-scrollbar" aria-label="Main Navigation">
+      <nav className="flex-1 space-y-1 overflow-y-auto pr-2 safe-scrollbar sidebar-nav-container" aria-label="Main Navigation">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -158,6 +198,31 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="page-shell min-h-screen text-fg">
       <div className="noise-grid fixed inset-0 pointer-events-none opacity-[0.35]" />
       
+      {/* react-joyride tour overlay */}
+      <Joyride
+        steps={tourSteps}
+        run={!onboardingCompleted}
+        continuous
+        options={{
+          buttons: ["back", "close", "primary", "skip"],
+          showProgress: true
+        }}
+        onEvent={handleJoyrideCallback}
+        styles={{
+          tooltip: {
+            backgroundColor: "var(--card, #1c1917)",
+            color: "var(--fg, #ffffff)"
+          },
+          buttonPrimary: {
+            backgroundColor: "var(--accent, #3b82f6)",
+            color: "#ffffff"
+          },
+          buttonBack: {
+            color: "var(--muted, #888888)"
+          }
+        }}
+      />
+
       <div className="relative mx-auto flex min-h-screen max-w-[1600px] flex-col lg:flex-row">
         
         {/* DESKTOP FIXED SIDEBAR */}
@@ -234,7 +299,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
               {/* RIGHT UTILITIES */}
               <div className="flex items-center gap-2.5">
-                {/* NETWORK BADGE - HIDDEN ON VERY SMALL MOBILE */}
+                {/* NETWORK BADGE */}
                 <div className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-border bg-black/[0.02] dark:bg-white/[0.02] px-3 py-1.5 text-xs text-muted font-medium">
                   <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
                   <span className="truncate max-w-[120px]">
@@ -295,5 +360,3 @@ export function AppShell({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-// Main wrapper for application pages
