@@ -467,3 +467,5 @@ export const useDappStore = create<DappStore>()(
     }
   )
 );
+
+// State slice strictly typed for better DevEx
