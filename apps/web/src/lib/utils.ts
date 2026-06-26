@@ -19,3 +19,5 @@ export function formatAmount(value: number, digits = 2) {
 export function explorerTxUrl(hash: string) {
   return `${import.meta.env.VITE_STELLAR_EXPLORER_BASE}/${hash}`;
 }
+
+// Formatting utility for wallet addresses
