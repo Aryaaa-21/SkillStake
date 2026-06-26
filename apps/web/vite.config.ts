@@ -24,3 +24,5 @@ export default defineConfig({
     },
   },
 });
+
+// Vite configuration for production builds
