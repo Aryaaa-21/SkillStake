@@ -281,3 +281,5 @@ npm install
 # Start local Vite development server
 npm run dev
 ```
+
+<!-- Architecture confirmed for Level 2 -->
