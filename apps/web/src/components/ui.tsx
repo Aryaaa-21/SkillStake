@@ -55,3 +55,5 @@ export function Progress({ value }: { value: number }) {
     </div>
   );
 }
+
+// UI library integrated with Radix and Tailwind
