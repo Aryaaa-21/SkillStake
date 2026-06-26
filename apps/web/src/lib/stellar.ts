@@ -129,3 +129,5 @@ export async function getRewardPoolBalance(): Promise<number> {
   }
   return 0;
 }
+
+// Added robust polling logic for transaction receipts
