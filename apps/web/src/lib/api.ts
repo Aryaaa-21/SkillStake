@@ -120,7 +120,7 @@ export const api = {
       source: body.sourceAddress,
       destination: body.destinationAddress,
       amount: String(body.amount),
-      memo: body.memo
+      ...(body.memo ? { memo: body.memo } : {})
     });
     return { transactionId: "local-tx-id", xdr };
   },

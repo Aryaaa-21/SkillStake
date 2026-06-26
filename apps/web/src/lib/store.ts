@@ -287,13 +287,13 @@ export const useDappStore = create<DappStore>()(
           const proofIndex = state.proofs.findIndex((p) => p._id === proofId);
           if (proofIndex === -1) return {};
           
-          const proof = { ...state.proofs[proofIndex] };
+          const proof = { ...state.proofs[proofIndex] } as ProofSummary;
           if (proof.status !== "pending") return {}; // Vote closed
           
           const challengeIndex = state.challenges.findIndex((c) => c._id === proof.challengeId);
           if (challengeIndex === -1) return {};
           
-          const challenge = { ...state.challenges[challengeIndex] };
+          const challenge = { ...state.challenges[challengeIndex] } as ChallengeSummary;
           
           // Register the vote
           proof.voteCount += 1;
@@ -309,19 +309,19 @@ export const useDappStore = create<DappStore>()(
           
           // Check resolution threshold
           let newChallengeStatus = challenge.status;
-          let newProofStatus = proof.status;
+          let newProofStatus: "pending" | "approved" | "rejected" = proof.status;
           let poolBalanceDelta = 0;
           
           if (approvedVotes >= challenge.verificationThreshold) {
-            newProofStatus = "approved";
-            newChallengeStatus = "completed";
+            newProofStatus = "approved" as const;
+            newChallengeStatus = "completed" as const;
           } else if (rejectedVotes >= challenge.verificationThreshold) {
-            newProofStatus = "rejected";
-            newChallengeStatus = "failed";
+            newProofStatus = "rejected" as const;
+            newChallengeStatus = "failed" as const;
             poolBalanceDelta = challenge.stakeAmount;
           }
           
-          const updatedProofs = state.proofs.map((p) => (p._id === proofId ? { ...proof, status: newProofStatus } : p));
+          const updatedProofs = state.proofs.map((p) => (p._id === proofId ? { ...proof, status: newProofStatus } : p)) as ProofSummary[];
           const updatedChallenges = state.challenges.map((c) =>
             c._id === challenge._id
               ? {
@@ -331,7 +331,7 @@ export const useDappStore = create<DappStore>()(
                   status: newChallengeStatus
                 }
               : c
-          );
+          ) as ChallengeSummary[];
           
           // Add to activity stream
           const activity: ActivitySummary = {

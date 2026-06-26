@@ -514,7 +514,7 @@ export function ChallengeDetailsPage() {
     const contractTx = await api.prepareContractTx({ method: "submitProof", sourceAddress: wallet.address, args: [id, proof.title, proof.description, proof.githubLink, proof.externalUrl, proof.textEvidence] });
     const signed = await signTransaction(contractTx.xdr, wallet.provider, wallet.address);
     const submitted = await api.submitTx({ xdr: signed, walletAddress: wallet.address, type: "submit_proof" });
-    await api.createProof(id, { submitterAddress: wallet.address, txHash: submitted.txHash, ...proof });
+    await api.createProof(id, { submitterAddress: wallet.address, ...proof });
     queryClient.invalidateQueries({ queryKey: ["challenge", id] });
     toast.success("Proof submitted");
   }

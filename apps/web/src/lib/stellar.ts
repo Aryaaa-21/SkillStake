@@ -71,13 +71,13 @@ export async function submitTransactionXdr(xdr: string) {
   // Submit via Soroban RPC server
   const sendResponse = await sorobanServer.sendTransaction(tx);
   if (sendResponse.status === "ERROR") {
-    throw new Error(sendResponse.errorResultXdr || "Soroban RPC Error");
+    throw new Error((sendResponse as any).errorResultXdr || "Soroban RPC Error");
   }
   
   // Poll for result
-  let status = sendResponse.status;
+  let status: string = sendResponse.status;
   let attempts = 0;
-  let txResult = null;
+  let txResult: any = null;
   
   while (status === "PENDING" && attempts < 10) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -87,7 +87,7 @@ export async function submitTransactionXdr(xdr: string) {
       txResult = getResponse;
       break;
     } else if (getResponse.status === "FAILED") {
-      throw new Error("Transaction execution failed: " + getResponse.errorResultXdr);
+      throw new Error("Transaction execution failed: " + (getResponse as any).errorResultXdr);
     }
     attempts++;
   }
@@ -118,7 +118,7 @@ export async function getRewardPoolBalance(): Promise<number> {
       .setTimeout(0)
       .build();
 
-    const simulation = await sorobanServer.simulateTransaction(tx);
+    const simulation: any = await sorobanServer.simulateTransaction(tx);
     if (simulation.results && simulation.results[0] && simulation.results[0].xdr) {
       const resultVal = StellarSdk.xdr.ScVal.fromXDR(simulation.results[0].xdr, "base64");
       const balanceBig = StellarSdk.scValToNative(resultVal);
