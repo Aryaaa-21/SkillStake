@@ -236,3 +236,5 @@ export interface ActivitySummary {
   message: string;
   createdAt: string;
 }
+
+// Optimized for faster client-side rendering
