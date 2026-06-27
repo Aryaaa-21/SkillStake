@@ -4,7 +4,7 @@ import { useWallet, signTransaction } from "../lib/wallet";
 import { api } from "../lib/api";
 import { Card, Button, Input, Textarea, Badge } from "../components/ui";
 import { SuccessModal, Spinner } from "../components/ux-helpers";
-import { PlusCircle, Info, Sparkles, HelpCircle, Loader2 } from "lucide-react";
+import { PlusCircle, Info, Sparkles, HelpCircle, Loader2, BookOpen, Award, Terminal, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import { monitoring } from "../lib/monitoring";
 
@@ -25,6 +25,46 @@ export function CreateChallengePage() {
   const [successTxHash, setSuccessTxHash] = useState("");
   
   const categories = ["Learning", "Fitness", "Development", "Habits"];
+  
+  const templates = [
+    {
+      title: "Complete 30 Days of DSA",
+      description: "Write and commit at least one data structures and algorithms solution to GitHub every single day.\n\nRequired Proof:\n1. Public GitHub repository link containing daily commits.\n2. Progress screenshot showing the commit history graph.",
+      category: "Learning",
+      stakeAmount: 100,
+      durationDays: 30,
+      verificationThreshold: 3,
+      icon: BookOpen
+    },
+    {
+      title: "Run 50 Kilometers in 2 Weeks",
+      description: "Perform running workouts to log a total distance of at least 50 kilometers within a 14-day period.\n\nRequired Proof:\n1. Public Strava activity sharing links.\n2. Screenshot of the workout summary dashboard displaying total distance.",
+      category: "Fitness",
+      stakeAmount: 150,
+      durationDays: 14,
+      verificationThreshold: 3,
+      icon: Award
+    },
+    {
+      title: "Build and Deploy Soroban Contract",
+      description: "Design, test, and deploy a simple custom Soroban smart contract on the Stellar Testnet.\n\nRequired Proof:\n1. Deployed Contract ID on stellar.expert explorer.\n2. Link to public GitHub repository containing the contract source code.",
+      category: "Development",
+      stakeAmount: 200,
+      durationDays: 7,
+      verificationThreshold: 4,
+      icon: Terminal
+    }
+  ];
+
+  const handleApplyTemplate = (tpl: typeof templates[0]) => {
+    setTitle(tpl.title);
+    setDescription(tpl.description);
+    setCategory(tpl.category);
+    setStakeAmount(tpl.stakeAmount);
+    setDurationDays(tpl.durationDays);
+    setVerificationThreshold(tpl.verificationThreshold);
+    toast.success(`Loaded template: "${tpl.title}"`);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,7 +136,7 @@ export function CreateChallengePage() {
   };
 
   return (
-    <div className="space-y-8 max-w-3xl mx-auto">
+    <div className="space-y-8 max-w-6xl mx-auto">
       {/* Header */}
       <div className="border-b border-border/40 pb-5">
         <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2">
@@ -106,139 +146,234 @@ export function CreateChallengePage() {
         <p className="text-sm text-muted">Initialize a new Soroban smart contract escrow with your XLM tokens.</p>
       </div>
 
-      <Card className="p-6 border-border/80 relative" id="tour-step-create-challenge-form">
-        {/* Loading Overlay */}
-        {isPending && (
-          <div className="absolute inset-0 bg-background/85 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-6 text-center rounded-2xl">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 mb-4 text-accent dark:text-white">
-              <Loader2 className="h-6 w-6 animate-spin" />
-            </div>
-            <h4 className="text-base font-bold text-accent dark:text-white mb-2">Smart Contract Invocation</h4>
-            <p className="text-xs text-muted max-w-xs leading-relaxed mb-4">{pendingStep}</p>
-            <div className="w-48 bg-black/10 dark:bg-white/10 h-1 rounded-full overflow-hidden">
-              <div className="h-full bg-accent animate-progress-mock rounded-full" style={{ width: "80%" }} />
-            </div>
-          </div>
-        )}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Form Container */}
+        <div className="lg:col-span-7 space-y-6">
+          <Card className="p-6 border-border/80 relative" id="tour-step-create-challenge-form">
+            {/* Loading Overlay */}
+            {isPending && (
+              <div className="absolute inset-0 bg-background/85 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-6 text-center rounded-2xl">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 mb-4 text-accent dark:text-white">
+                  <Loader2 className="h-6 w-6 animate-spin" />
+                </div>
+                <h4 className="text-base font-bold text-accent dark:text-white mb-2">Smart Contract Invocation</h4>
+                <p className="text-xs text-muted max-w-xs leading-relaxed mb-4">{pendingStep}</p>
+                <div className="w-48 bg-black/10 dark:bg-white/10 h-1 rounded-full overflow-hidden">
+                  <div className="h-full bg-accent animate-progress-mock rounded-full" style={{ width: "80%" }} />
+                </div>
+              </div>
+            )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Title */}
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Challenge Title</label>
-            <Input
-              type="text"
-              required
-              placeholder="e.g. Write Rust Code for 30 Days"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Title */}
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Challenge Title</label>
+                <Input
+                  type="text"
+                  required
+                  placeholder="e.g. Write Rust Code for 30 Days"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
 
-          {/* Description */}
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Commitment Rules</label>
-            <Textarea
-              rows={4}
-              required
-              placeholder="Specify the criteria. What evidence is required to prove completion?"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
+              {/* Description */}
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Commitment Rules</label>
+                <Textarea
+                  rows={6}
+                  required
+                  placeholder="Specify the criteria. What evidence is required to prove completion?"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
 
-          {/* Category */}
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Category</label>
-            <div className="grid gap-2 grid-cols-2 sm:grid-cols-4">
-              {categories.map((cat) => (
-                <button
-                  type="button"
-                  key={cat}
-                  onClick={() => setCategory(cat)}
-                  className={`rounded-xl border px-3 py-2.5 text-xs font-semibold transition-all duration-200 ${
-                    category === cat
-                      ? "border-accent bg-accent/5 text-accent dark:text-white"
-                      : "border-border hover:border-accent/40 bg-transparent text-muted"
-                  }`}
+              {/* Category */}
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Category</label>
+                <div className="grid gap-2 grid-cols-2 sm:grid-cols-4">
+                  {categories.map((cat) => (
+                    <button
+                      type="button"
+                      key={cat}
+                      onClick={() => setCategory(cat)}
+                      className={`rounded-xl border px-3 py-2.5 text-xs font-semibold transition-all duration-200 ${
+                        category === cat
+                          ? "border-accent bg-accent/5 text-accent dark:text-white"
+                          : "border-border hover:border-accent/40 bg-transparent text-muted"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Stakes Grid */}
+              <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Stake Amount (XLM)</label>
+                  <Input
+                    type="number"
+                    min={5}
+                    required
+                    value={stakeAmount}
+                    onChange={(e) => setStakeAmount(Math.max(1, Number(e.target.value)))}
+                  />
+                  <p className="text-[10px] text-muted">Tokens locked in smart contract.</p>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Duration (Days)</label>
+                  <Input
+                    type="number"
+                    min={1}
+                    required
+                    value={durationDays}
+                    onChange={(e) => setDurationDays(Math.max(1, Number(e.target.value)))}
+                  />
+                  <p className="text-[10px] text-muted">Total time to complete goals.</p>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Voter Threshold</label>
+                  <Input
+                    type="number"
+                    min={1}
+                    required
+                    value={verificationThreshold}
+                    onChange={(e) => setVerificationThreshold(Math.max(1, Number(e.target.value)))}
+                  />
+                  <p className="text-[10px] text-muted">Required community approval votes.</p>
+                </div>
+              </div>
+
+              {/* Wallet warning */}
+              {!wallet.connected && (
+                <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-4 flex gap-3 text-xs leading-normal">
+                  <Info className="h-4.5 w-4.5 text-rose-500 shrink-0 mt-0.5" />
+                  <div className="text-rose-700 dark:text-rose-400">
+                    <span className="font-bold">Wallet Disconnected:</span> You must connect your Freighter or Albedo wallet in the Wallet settings before creating an escrow challenge.
+                  </div>
+                </div>
+              )}
+
+              {/* Stake notice */}
+              {wallet.connected && (
+                <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 flex gap-3 text-xs leading-normal">
+                  <Info className="h-4.5 w-4.5 text-amber-500 shrink-0 mt-0.5" />
+                  <div className="text-amber-700 dark:text-amber-400">
+                    <span className="font-bold">Collateral Notice:</span> Creating this challenge locks <span className="font-bold">{stakeAmount} XLM</span> directly into the escrow contract. Failed completion releases the stake to the reward pool.
+                  </div>
+                </div>
+              )}
+
+              {/* Action Button */}
+              <div className="pt-2">
+                <Button
+                  type="submit"
+                  disabled={!wallet.connected || wallet.balance < stakeAmount}
+                  className="w-full h-11 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-premium"
                 >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Stakes Grid */}
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Stake Amount (XLM)</label>
-              <Input
-                type="number"
-                min={5}
-                required
-                value={stakeAmount}
-                onChange={(e) => setStakeAmount(Math.max(1, Number(e.target.value)))}
-              />
-              <p className="text-[10px] text-muted">Tokens locked in smart contract.</p>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Duration (Days)</label>
-              <Input
-                type="number"
-                min={1}
-                required
-                value={durationDays}
-                onChange={(e) => setDurationDays(Math.max(1, Number(e.target.value)))}
-              />
-              <p className="text-[10px] text-muted">Total time to complete goals.</p>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Voter Threshold</label>
-              <Input
-                type="number"
-                min={1}
-                required
-                value={verificationThreshold}
-                onChange={(e) => setVerificationThreshold(Math.max(1, Number(e.target.value)))}
-              />
-              <p className="text-[10px] text-muted">Required community approval votes.</p>
-            </div>
-          </div>
-
-          {/* Wallet warning */}
-          {!wallet.connected && (
-            <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-4 flex gap-3 text-xs leading-normal">
-              <Info className="h-4.5 w-4.5 text-rose-500 shrink-0 mt-0.5" />
-              <div className="text-rose-700 dark:text-rose-400">
-                <span className="font-bold">Wallet Disconnected:</span> You must connect your Freighter or Albedo wallet in the Wallet settings before creating an escrow challenge.
+                  <Sparkles className="h-4 w-4" />
+                  Sign & Lock {stakeAmount} XLM Escrow
+                </Button>
               </div>
-            </div>
-          )}
+            </form>
+          </Card>
+        </div>
 
-          {/* Stake notice */}
-          {wallet.connected && (
-            <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 flex gap-3 text-xs leading-normal">
-              <Info className="h-4.5 w-4.5 text-amber-500 shrink-0 mt-0.5" />
-              <div className="text-amber-700 dark:text-amber-400">
-                <span className="font-bold">Collateral Notice:</span> Creating this challenge locks <span className="font-bold">{stakeAmount} XLM</span> directly into the escrow contract. Failed completion releases the stake to the reward pool.
-              </div>
+        {/* Right Side: Examples & Guidelines */}
+        <div className="lg:col-span-5 space-y-6">
+          
+          {/* Quick-Start Templates */}
+          <Card className="p-6 border-border/80 space-y-4">
+            <div>
+              <h3 className="text-sm font-bold text-accent dark:text-white flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
+                Quick-Start Templates
+              </h3>
+              <p className="text-[11px] text-muted">Click an example template below to immediately populate the configuration form.</p>
             </div>
-          )}
 
-          {/* Action Button */}
-          <div className="pt-2">
-            <Button
-              type="submit"
-              disabled={!wallet.connected || wallet.balance < stakeAmount}
-              className="w-full h-11 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-premium"
-            >
-              <Sparkles className="h-4 w-4" />
-              Sign & Lock {stakeAmount} XLM Escrow
-            </Button>
-          </div>
-        </form>
-      </Card>
+            <div className="space-y-3 pt-2">
+              {templates.map((tpl) => {
+                const Icon = tpl.icon;
+                return (
+                  <button
+                    key={tpl.title}
+                    type="button"
+                    onClick={() => handleApplyTemplate(tpl)}
+                    className="w-full text-left rounded-xl border border-border/60 hover:border-accent/40 bg-black/[0.01] dark:bg-white/[0.01] hover:bg-black/[0.03] dark:hover:bg-white/[0.03] p-3.5 flex items-start gap-3 transition-all duration-200 group"
+                  >
+                    <div className="h-9 w-9 rounded-lg bg-accent/5 dark:bg-white/5 flex items-center justify-center shrink-0 text-accent dark:text-white border border-border/40 group-hover:bg-accent group-hover:text-accentFg group-hover:border-accent transition-colors duration-200">
+                      <Icon className="h-4.5 w-4.5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-xs font-bold text-accent dark:text-white truncate">{tpl.title}</h4>
+                        <ChevronRight className="h-3 w-3 text-muted shrink-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" />
+                      </div>
+                      <p className="text-[10px] text-muted truncate mt-0.5">{tpl.description.split("\n")[0]}</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Badge variant="secondary" className="text-[9px] px-1.5 py-0.5 rounded-md font-semibold">{tpl.category}</Badge>
+                        <span className="text-[9px] text-muted font-medium">•</span>
+                        <span className="text-[9px] text-muted font-semibold">{tpl.stakeAmount} XLM</span>
+                        <span className="text-[9px] text-muted font-medium">•</span>
+                        <span className="text-[9px] text-muted font-semibold">{tpl.durationDays} Days</span>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </Card>
+
+          {/* Writing Guidelines */}
+          <Card className="p-6 border-border/80 space-y-4">
+            <div>
+              <h3 className="text-sm font-bold text-accent dark:text-white flex items-center gap-2">
+                <HelpCircle className="h-4.5 w-4.5 text-accent dark:text-white" />
+                Guidelines & Recommendations
+              </h3>
+              <p className="text-[11px] text-muted">How to write a solid accountability brief that community validators can easily audit.</p>
+            </div>
+
+            <ul className="space-y-3.5 pt-2 text-xs leading-relaxed text-muted">
+              <li className="flex gap-2.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-accent dark:bg-white shrink-0 mt-2" />
+                <div>
+                  <strong className="text-accent dark:text-white block font-semibold mb-0.5">Use Measurable Targets</strong>
+                  Define exact daily/weekly limits. Say <span className="italic text-accent dark:text-white">"Write 1 DSA solution daily"</span> instead of <span className="italic">"Practice coding"</span>.
+                </div>
+              </li>
+              <li className="flex gap-2.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-accent dark:bg-white shrink-0 mt-2" />
+                <div>
+                  <strong className="text-accent dark:text-white block font-semibold mb-0.5">Outline Concrete Proof</strong>
+                  List what evidence validators should check (e.g. GitHub commit URLs, Strava runs, testnet transaction hashes).
+                </div>
+              </li>
+              <li className="flex gap-2.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-accent dark:bg-white shrink-0 mt-2" />
+                <div>
+                  <strong className="text-accent dark:text-white block font-semibold mb-0.5">Motivate with Collateral</strong>
+                  Choose a stake amount (minimum 5 XLM) that is large enough to push you but within your current budget.
+                </div>
+              </li>
+              <li className="flex gap-2.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-accent dark:bg-white shrink-0 mt-2" />
+                <div>
+                  <strong className="text-accent dark:text-white block font-semibold mb-0.5">Decentralized Voting</strong>
+                  Set a Voter Threshold of 3+ to ensure your submissions are vetted by multiple independent validators.
+                </div>
+              </li>
+            </ul>
+          </Card>
+
+        </div>
+      </div>
 
       {/* Success Modal */}
       <SuccessModal
