@@ -28,7 +28,7 @@ export function CreateChallengePage() {
   
   const templates = [
     {
-      title: "Complete 30 Days of DSA",
+      title: "✨ Template: Complete 30 Days of DSA",
       description: "Write and commit at least one data structures and algorithms solution to GitHub every single day.\n\nRequired Proof:\n1. Public GitHub repository link containing daily commits.\n2. Progress screenshot showing the commit history graph.",
       category: "Learning",
       stakeAmount: 100,
@@ -37,7 +37,7 @@ export function CreateChallengePage() {
       icon: BookOpen
     },
     {
-      title: "Run 50 Kilometers in 2 Weeks",
+      title: "✨ Template: Run 50 Kilometers in 2 Weeks",
       description: "Perform running workouts to log a total distance of at least 50 kilometers within a 14-day period.\n\nRequired Proof:\n1. Public Strava activity sharing links.\n2. Screenshot of the workout summary dashboard displaying total distance.",
       category: "Fitness",
       stakeAmount: 150,
@@ -46,7 +46,7 @@ export function CreateChallengePage() {
       icon: Award
     },
     {
-      title: "Build and Deploy Soroban Contract",
+      title: "✨ Template: Build and Deploy Soroban Contract",
       description: "Design, test, and deploy a simple custom Soroban smart contract on the Stellar Testnet.\n\nRequired Proof:\n1. Deployed Contract ID on stellar.expert explorer.\n2. Link to public GitHub repository containing the contract source code.",
       category: "Development",
       stakeAmount: 200,

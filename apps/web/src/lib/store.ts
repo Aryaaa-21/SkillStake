@@ -135,7 +135,7 @@ const INITIAL_CHALLENGES: ChallengeSummary[] = [
   {
     _id: "challenge-1",
     creatorAddress: "GAKAKTP2BNVJPMGMGB2Y63VG65QCXSF4B5AX54SY45MEHYEQT526XFTN",
-    title: "Complete 30 Days of DSA",
+    title: "🚀 [DEMO ACTIVE] Complete 30 Days of DSA",
     description: "Write and commit one data structures and algorithms solution every single day on GitHub.",
     category: "Learning",
     stakeAmount: 100,
@@ -150,7 +150,7 @@ const INITIAL_CHALLENGES: ChallengeSummary[] = [
   {
     _id: "challenge-2",
     creatorAddress: "GBV3L2U4N2J6L6K77XW2L8C2Y63VS7PQH6LMX7SY48NS6MEHYEQT456VET",
-    title: "Run 50 Kilometers in 2 Weeks",
+    title: "🏃 [SUBMITTED] Run 50 Kilometers in 2 Weeks",
     description: "Submit Strava screenshots showing running workouts totaling at least 50km.",
     category: "Fitness",
     stakeAmount: 150,
