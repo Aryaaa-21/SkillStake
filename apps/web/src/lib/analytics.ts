@@ -1,12 +1,6 @@
 import ReactGA from "react-ga4";
-import { inject } from "@vercel/analytics";
 
-// Initialize Vercel Analytics
-try {
-  inject();
-} catch (e) {
-  console.warn("Failed to initialize Vercel Analytics:", e);
-}
+// Note: Vercel Analytics is initialized in main.tsx using inject() from @vercel/analytics
 
 // Inject Microsoft Clarity Script tag
 function injectClarity(projectId: string) {
