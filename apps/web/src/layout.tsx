@@ -203,16 +203,14 @@ export function AppShell({ children }: { children: ReactNode }) {
         continuous
         options={{
           buttons: ["back", "close", "primary", "skip"],
-          showProgress: true
+          showProgress: true,
+          arrowColor: "rgb(var(--card))",
+          backgroundColor: "rgb(var(--card))",
+          primaryColor: "rgb(var(--accent))",
+          textColor: "rgb(var(--fg))"
         }}
         onEvent={handleJoyrideCallback}
         styles={{
-          options: {
-            arrowColor: "rgb(var(--card))",
-            backgroundColor: "rgb(var(--card))",
-            primaryColor: "rgb(var(--accent))",
-            textColor: "rgb(var(--fg))",
-          },
           tooltip: {
             backgroundColor: "rgb(var(--card))",
             color: "rgb(var(--fg))",

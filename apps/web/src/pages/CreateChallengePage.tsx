@@ -317,7 +317,7 @@ export function CreateChallengePage() {
                       </div>
                       <p className="text-[10px] text-muted truncate mt-0.5">{tpl.description.split("\n")[0]}</p>
                       <div className="flex items-center gap-2 mt-2">
-                        <Badge variant="secondary" className="text-[9px] px-1.5 py-0.5 rounded-md font-semibold">{tpl.category}</Badge>
+                        <Badge className="text-[9px] px-1.5 py-0.5 rounded-md font-semibold">{tpl.category}</Badge>
                         <span className="text-[9px] text-muted font-medium">•</span>
                         <span className="text-[9px] text-muted font-semibold">{tpl.stakeAmount} XLM</span>
                         <span className="text-[9px] text-muted font-medium">•</span>
