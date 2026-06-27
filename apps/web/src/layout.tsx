@@ -26,7 +26,6 @@ import {
   Sparkles,
   Sun,
   Moon,
-  Laptop,
   Activity,
   ShieldCheck
 } from "lucide-react";
@@ -79,12 +78,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const themeIcon = useMemo(() => {
     if (themeMode === "dark") return <Moon className="h-4 w-4" />;
-    if (themeMode === "light") return <Sun className="h-4 w-4" />;
-    return <Laptop className="h-4 w-4" />;
+    return <Sun className="h-4 w-4" />;
   }, [themeMode]);
 
   const toggleTheme = () => {
-    setThemeMode(themeMode === "dark" ? "light" : themeMode === "light" ? "auto" : "dark");
+    setThemeMode(themeMode === "dark" ? "light" : "dark");
   };
 
   // Guided onboarding steps definition
@@ -209,16 +207,25 @@ export function AppShell({ children }: { children: ReactNode }) {
         }}
         onEvent={handleJoyrideCallback}
         styles={{
+          options: {
+            arrowColor: "rgb(var(--card))",
+            backgroundColor: "rgb(var(--card))",
+            primaryColor: "rgb(var(--accent))",
+            textColor: "rgb(var(--fg))",
+          },
           tooltip: {
-            backgroundColor: "var(--card, #1c1917)",
-            color: "var(--fg, #ffffff)"
+            backgroundColor: "rgb(var(--card))",
+            color: "rgb(var(--fg))",
+            borderRadius: "12px",
+            border: "1px solid rgb(var(--border))",
+            padding: "20px",
           },
           buttonPrimary: {
-            backgroundColor: "var(--accent, #3b82f6)",
-            color: "#ffffff"
+            backgroundColor: "rgb(var(--accent))",
+            color: "rgb(var(--accent-fg))",
           },
           buttonBack: {
-            color: "var(--muted, #888888)"
+            color: "rgb(var(--muted))"
           }
         }}
       />

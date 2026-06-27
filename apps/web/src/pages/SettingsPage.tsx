@@ -1,10 +1,12 @@
 import { useDappStore } from "../lib/store";
+import { useTheme } from "../lib/theme";
 import { Card, Button, Badge } from "../components/ui";
 import { Settings, RefreshCw, Sun, Moon, Database } from "lucide-react";
 import { toast } from "sonner";
 
 export function SettingsPage() {
-  const { themeMode, setThemeMode, setOnboardingCompleted } = useDappStore();
+  const { themeMode, setThemeMode } = useTheme();
+  const { setOnboardingCompleted } = useDappStore();
 
   const handleResetTour = () => {
     setOnboardingCompleted(false);
@@ -41,8 +43,8 @@ export function SettingsPage() {
             <p className="text-xs text-muted">Aesthetic control flags of the application dashboard.</p>
           </div>
 
-          <div className="grid gap-3 grid-cols-3 pt-2">
-            {(["light", "dark", "auto"] as const).map((mode) => (
+          <div className="grid gap-3 grid-cols-2 pt-2">
+            {(["light", "dark"] as const).map((mode) => (
               <button
                 key={mode}
                 onClick={() => setThemeMode(mode)}

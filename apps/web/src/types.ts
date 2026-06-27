@@ -1,4 +1,4 @@
-export type ThemeMode = "light" | "dark" | "auto";
+export type ThemeMode = "light" | "dark";
 
 export type WalletProvider = "freighter" | "albedo" | "manual";
 

@@ -9,7 +9,7 @@ interface ThemeState {
 }
 
 const useThemeStore = create<ThemeState>((set, get) => ({
-  themeMode: "auto",
+  themeMode: "dark",
   resolvedTheme: "dark",
   setThemeMode: (mode) => {
     const resolvedTheme = resolveTheme(mode);
@@ -28,10 +28,7 @@ function resolveTheme(mode: ThemeMode): "light" | "dark" {
   if (stored === "light" || stored === "dark") {
     return stored;
   }
-  const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? true;
-  const hour = new Date().getHours();
-  const afterHours = hour >= 19 || hour < 7;
-  return prefersDark || afterHours ? "dark" : "light";
+  return "dark";
 }
 
 function persistTheme(mode: ThemeMode) {
@@ -43,7 +40,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const themeStore = useThemeStore();
 
   useEffect(() => {
-    const stored = (localStorage.getItem("skillstake-theme") as ThemeMode | null) ?? "auto";
+    const stored = (localStorage.getItem("skillstake-theme") as ThemeMode | null) ?? "dark";
     const resolvedTheme = resolveTheme(stored);
     useThemeStore.setState({ themeMode: stored, resolvedTheme });
     setReady(true);

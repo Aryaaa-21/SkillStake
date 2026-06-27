@@ -4,6 +4,7 @@ import type { ChallengeSummary, ProofSummary, RewardPoolSummary, LeaderboardRow,
 import { analytics } from "./analytics";
 import confetti from "canvas-confetti";
 import { toast } from "sonner";
+import type { ThemeMode } from "../types";
 
 export interface TelemetryLog {
   _id: string;
@@ -304,7 +305,7 @@ interface DappStore {
   telemetryLogs: TelemetryLog[];
   feedbackLogs: FeedbackLog[];
   onboardingCompleted: boolean;
-  themeMode: "light" | "dark" | "auto";
+  themeMode: ThemeMode;
   sidebarOpen: boolean;
   
   addChallenge: (challenge: Omit<ChallengeSummary, "_id" | "createdAt" | "proofCount" | "approvedVotes" | "rejectedVotes" | "status">) => ChallengeSummary;
@@ -313,7 +314,7 @@ interface DappStore {
   addNotification: (title: string, body: string, kind: string) => void;
   addActivity: (kind: string, actorAddress: string, message: string) => void;
   updateRewardPoolBalance: (balance: number) => void;
-  setThemeMode: (mode: "light" | "dark" | "auto") => void;
+  setThemeMode: (mode: ThemeMode) => void;
   setSidebarOpen: (open: boolean) => void;
   setOnboardingCompleted: (completed: boolean) => void;
   
