@@ -268,7 +268,13 @@ The SkillStake application consists entirely of a static frontend client communi
 
 ### CI/CD Pipeline
 
-<img width="1763" height="892" alt="image" src="https://github.com/user-attachments/assets/e697f22e-7b4c-4b98-aef3-b0f535dc8754" />
+Our automated CI/CD pipeline verifies code health and ensures reliability on every commit:
+- **Typecheck**: Enforces strict TypeScript verification across the workspace.
+- **Lint**: Ensures code compliance with syntax and layout standards.
+- **Test**: Runs the entire Vitest unit test suite (wallet helper verification, challenge schemas, reward-pool calculations, monitoring & analytics triggers).
+- **Build**: Packages and verifies production build compatibility.
+
+<img width="1897" height="933" alt="image" src="https://github.com/user-attachments/assets/bc4e26c3-2f43-40ce-914e-c11d1d476711" />
 
 ---
 
