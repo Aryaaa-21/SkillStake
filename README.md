@@ -270,6 +270,9 @@ The SkillStake application consists entirely of a static frontend client communi
 
 <img width="1908" height="930" alt="image" src="https://github.com/user-attachments/assets/67307568-24c1-4f0e-ba04-1107ab516b3d" />
 
+### Google Form LINK(https://forms.gle/Ftw785r5jqM4Xix9A)
+
+### Excel Sheet (https://docs.google.com/spreadsheets/d/1eKVQocb8vaJCDSv_Ej3EfzP9ZkGTUPn20eEjjCoL-io/edit?resourcekey=&gid=2062074986#gid=2062074986)
 
 ---
 
