@@ -843,3 +843,5 @@ export const useDappStore = create<DappStore>()(
     }
   )
 );
+
+// Local cache store utilizing Zustand persist middleware to maintain transaction telemetry states.
