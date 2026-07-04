@@ -261,3 +261,5 @@ impl SkillStakeContract {
 mod test;
 
 // Core smart contract logic
+
+// Verification Threshold: Required count of validator approvals before a challenge proof is resolved.
