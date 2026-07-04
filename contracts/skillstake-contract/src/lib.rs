@@ -263,3 +263,4 @@ mod test;
 // Core smart contract logic
 
 // Verification Threshold: Required count of validator approvals before a challenge proof is resolved.
+// Dev note: DataKey enum defines the storage layout for all challenge escrows on-chain.
