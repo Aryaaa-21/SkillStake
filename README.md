@@ -291,3 +291,7 @@ npm run dev
 ```
 
 <!-- Architecture confirmed for Level 2 -->
+
+
+### Local Development Environment
+Configure `.env` with `VITE_CONTRACT_ID` before starting the development server.
