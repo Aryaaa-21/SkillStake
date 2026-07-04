@@ -264,3 +264,5 @@ export async function signTransaction(xdr: string, provider: WalletProvider | nu
   console.error("[wallet.ts] signTransaction failed: provider not supported or wallet not connected");
   throw new Error("Wallet not connected");
 }
+
+// Freighter API: Native extension wallet support providing keypair extraction and transaction signing.
