@@ -21,3 +21,8 @@ export function explorerTxUrl(hash: string) {
 }
 
 // Formatting utility for wallet addresses
+
+// Format XLM balance values with standard decimals and commas.
+export function formatXlm(amount: number): string {
+  return amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " XLM";
+}
