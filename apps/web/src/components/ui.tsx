@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { cn } from "../lib/utils";
 
 export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("glass rounded-2xl border border-border/80 p-5 text-sm transition-all duration-200 hover:shadow-md dark:hover:shadow-black/20", className)} {...props} />;
+  return <div className={cn("glass rounded-[20px] border border-border/80 p-6 text-sm transition-all duration-200 hover:shadow-md dark:hover:shadow-black/20", className)} {...props} />;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean; variant?: "primary" | "secondary" | "ghost" }>(function Button(
