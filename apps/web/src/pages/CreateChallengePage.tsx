@@ -136,10 +136,10 @@ export function CreateChallengePage() {
   };
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto">
+    <div className="space-y-8 max-w-[1440px] mx-auto">
       {/* Header */}
       <div className="border-b border-border/40 pb-5">
-        <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2">
+        <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2 font-raleway">
           <PlusCircle className="h-6 w-6 text-accent dark:text-white" />
           Create accountability stake
         </h2>
@@ -156,7 +156,7 @@ export function CreateChallengePage() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 mb-4 text-accent dark:text-white">
                   <Loader2 className="h-6 w-6 animate-spin" />
                 </div>
-                <h4 className="text-base font-bold text-accent dark:text-white mb-2">Smart Contract Invocation</h4>
+                <h4 className="text-base font-bold text-accent dark:text-white mb-2 font-raleway">Smart Contract Invocation</h4>
                 <p className="text-xs text-muted max-w-xs leading-relaxed mb-4">{pendingStep}</p>
                 <div className="w-48 bg-black/10 dark:bg-white/10 h-1 rounded-full overflow-hidden">
                   <div className="h-full bg-accent animate-progress-mock rounded-full" style={{ width: "80%" }} />
@@ -167,7 +167,7 @@ export function CreateChallengePage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Title */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Challenge Title</label>
+                <label className="text-[10px] font-bold text-muted uppercase tracking-wider font-raleway">Challenge Title</label>
                 <Input
                   type="text"
                   required
@@ -179,7 +179,7 @@ export function CreateChallengePage() {
 
               {/* Description */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Commitment Rules</label>
+                <label className="text-[10px] font-bold text-muted uppercase tracking-wider font-raleway">Commitment Rules</label>
                 <Textarea
                   rows={6}
                   required
@@ -191,14 +191,14 @@ export function CreateChallengePage() {
 
               {/* Category */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Category</label>
+                <label className="text-[10px] font-bold text-muted uppercase tracking-wider font-raleway">Category</label>
                 <div className="grid gap-2 grid-cols-2 sm:grid-cols-4">
                   {categories.map((cat) => (
                     <button
                       type="button"
                       key={cat}
                       onClick={() => setCategory(cat)}
-                      className={`rounded-xl border px-3 py-2.5 text-xs font-semibold transition-all duration-200 ${
+                      className={`rounded-xl border px-3 py-2.5 text-xs font-semibold transition-all duration-200 font-raleway ${
                         category === cat
                           ? "border-accent bg-accent/5 text-accent dark:text-white"
                           : "border-border hover:border-accent/40 bg-transparent text-muted"
@@ -213,7 +213,7 @@ export function CreateChallengePage() {
               {/* Stakes Grid */}
               <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Stake Amount (XLM)</label>
+                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider font-raleway">Stake Amount (XLM)</label>
                   <Input
                     type="number"
                     min={5}
@@ -225,7 +225,7 @@ export function CreateChallengePage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Duration (Days)</label>
+                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider font-raleway">Duration (Days)</label>
                   <Input
                     type="number"
                     min={1}
@@ -237,7 +237,7 @@ export function CreateChallengePage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Voter Threshold</label>
+                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider font-raleway">Voter Threshold</label>
                   <Input
                     type="number"
                     min={1}
@@ -274,7 +274,7 @@ export function CreateChallengePage() {
                 <Button
                   type="submit"
                   disabled={!wallet.connected || wallet.balance < stakeAmount}
-                  className="w-full h-11 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-premium"
+                  className="w-full h-11 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-premium font-raleway"
                 >
                   <Sparkles className="h-4 w-4" />
                   Sign & Lock {stakeAmount} XLM Escrow
@@ -290,7 +290,7 @@ export function CreateChallengePage() {
           {/* Quick-Start Templates */}
           <Card className="p-6 border-border/80 space-y-4">
             <div>
-              <h3 className="text-sm font-bold text-accent dark:text-white flex items-center gap-2">
+              <h3 className="text-sm font-bold text-accent dark:text-white flex items-center gap-2 font-raleway">
                 <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
                 Quick-Start Templates
               </h3>
@@ -312,12 +312,12 @@ export function CreateChallengePage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs font-bold text-accent dark:text-white truncate">{tpl.title}</h4>
+                        <h4 className="text-xs font-bold text-accent dark:text-white truncate font-raleway">{tpl.title}</h4>
                         <ChevronRight className="h-3 w-3 text-muted shrink-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" />
                       </div>
                       <p className="text-[10px] text-muted truncate mt-0.5">{tpl.description.split("\n")[0]}</p>
                       <div className="flex items-center gap-2 mt-2">
-                        <Badge className="text-[9px] px-1.5 py-0.5 rounded-md font-semibold">{tpl.category}</Badge>
+                        <Badge className="text-[9px] px-1.5 py-0.5 rounded-md font-semibold font-raleway">{tpl.category}</Badge>
                         <span className="text-[9px] text-muted font-medium">•</span>
                         <span className="text-[9px] text-muted font-semibold">{tpl.stakeAmount} XLM</span>
                         <span className="text-[9px] text-muted font-medium">•</span>
@@ -333,7 +333,7 @@ export function CreateChallengePage() {
           {/* Writing Guidelines */}
           <Card className="p-6 border-border/80 space-y-4">
             <div>
-              <h3 className="text-sm font-bold text-accent dark:text-white flex items-center gap-2">
+              <h3 className="text-sm font-bold text-accent dark:text-white flex items-center gap-2 font-raleway">
                 <HelpCircle className="h-4.5 w-4.5 text-accent dark:text-white" />
                 Guidelines & Recommendations
               </h3>
@@ -344,28 +344,28 @@ export function CreateChallengePage() {
               <li className="flex gap-2.5">
                 <div className="h-1.5 w-1.5 rounded-full bg-accent dark:bg-white shrink-0 mt-2" />
                 <div>
-                  <strong className="text-accent dark:text-white block font-semibold mb-0.5">Use Measurable Targets</strong>
+                  <strong className="text-accent dark:text-white block font-semibold mb-0.5 font-raleway">Use Measurable Targets</strong>
                   Define exact daily/weekly limits. Say <span className="italic text-accent dark:text-white">"Write 1 DSA solution daily"</span> instead of <span className="italic">"Practice coding"</span>.
                 </div>
               </li>
               <li className="flex gap-2.5">
                 <div className="h-1.5 w-1.5 rounded-full bg-accent dark:bg-white shrink-0 mt-2" />
                 <div>
-                  <strong className="text-accent dark:text-white block font-semibold mb-0.5">Outline Concrete Proof</strong>
+                  <strong className="text-accent dark:text-white block font-semibold mb-0.5 font-raleway">Outline Concrete Proof</strong>
                   List what evidence validators should check (e.g. GitHub commit URLs, Strava runs, testnet transaction hashes).
                 </div>
               </li>
               <li className="flex gap-2.5">
                 <div className="h-1.5 w-1.5 rounded-full bg-accent dark:bg-white shrink-0 mt-2" />
                 <div>
-                  <strong className="text-accent dark:text-white block font-semibold mb-0.5">Motivate with Collateral</strong>
+                  <strong className="text-accent dark:text-white block font-semibold mb-0.5 font-raleway">Motivate with Collateral</strong>
                   Choose a stake amount (minimum 5 XLM) that is large enough to push you but within your current budget.
                 </div>
               </li>
               <li className="flex gap-2.5">
                 <div className="h-1.5 w-1.5 rounded-full bg-accent dark:bg-white shrink-0 mt-2" />
                 <div>
-                  <strong className="text-accent dark:text-white block font-semibold mb-0.5">Decentralized Voting</strong>
+                  <strong className="text-accent dark:text-white block font-semibold mb-0.5 font-raleway">Decentralized Voting</strong>
                   Set a Voter Threshold of 3+ to ensure your submissions are vetted by multiple independent validators.
                 </div>
               </li>
