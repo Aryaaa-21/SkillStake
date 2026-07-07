@@ -503,7 +503,7 @@ We monitor key platform metrics to track community growth:
 ## Demo Video & Pitch Deck
 
 * **Demo Video**: [Watch Demo Video](https://drive.google.com/file/d/1dKvpwa2mqmBhjjBZvW3tZhzH1Timqc0j/view?usp=drivesdk)
-* **Pitch Deck**: [View Pitch Presentation](https://github.com/Aryaaa-21/SkillStake/blob/main/docs/pitch-deck-content.md)
+* **Pitch Deck**: [View Pitch Presentation](https://drive.google.com/file/d/1zLt1W3Io0NQ4DboRaCb9kiZzKG0HOWrK/view?usp=sharing)
 
 ---
 
