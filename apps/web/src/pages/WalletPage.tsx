@@ -43,10 +43,10 @@ export function WalletPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-[1440px] mx-auto">
       {/* Header */}
       <div className="border-b border-border/40 pb-5">
-        <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2">
+        <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2 font-raleway">
           <Wallet className="h-6 w-6 text-accent dark:text-white" />
           Stellar wallet settings
         </h2>
@@ -57,7 +57,7 @@ export function WalletPage() {
         {/* Left Side: Status / Connection */}
         <Card className="p-6 border-border/80 space-y-6">
           <div>
-            <h3 className="text-lg font-bold text-accent dark:text-white">Connection Interface</h3>
+            <h3 className="text-lg font-bold text-accent dark:text-white font-raleway">Connection Interface</h3>
             <p className="text-xs text-muted">Manage your active public key cryptographic sessions.</p>
           </div>
 
@@ -66,15 +66,15 @@ export function WalletPage() {
               <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4 flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-emerald-500 uppercase tracking-wider">Active connection</p>
+                  <p className="text-xs font-bold text-emerald-500 uppercase tracking-wider font-raleway">Active connection</p>
                   <p className="text-xs text-muted truncate mt-0.5">Connected via {wallet.provider}</p>
                 </div>
-                <Badge className="bg-emerald-500/10 border-emerald-500/20 text-emerald-500 shrink-0">Active</Badge>
+                <Badge className="bg-emerald-500/10 border-emerald-500/20 text-emerald-500 shrink-0 font-raleway">Active</Badge>
               </div>
 
               <div className="space-y-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Stellar Public Key</label>
+                  <label className="text-[10px] font-bold text-muted uppercase tracking-wider font-raleway">Stellar Public Key</label>
                   <div className="flex gap-2">
                     <input
                       type="text"
@@ -95,7 +95,7 @@ export function WalletPage() {
 
                 <div className="flex justify-between items-center py-2.5 border-b border-border/40 text-xs">
                   <span className="text-muted font-medium">Escrow contract link</span>
-                  <span className="font-bold text-accent dark:text-white flex items-center gap-1.5">
+                  <span className="font-bold text-accent dark:text-white flex items-center gap-1.5 font-raleway">
                     Soroban
                     <Link2 className="h-3.5 w-3.5" />
                   </span>
@@ -103,7 +103,7 @@ export function WalletPage() {
               </div>
 
               <div className="pt-2">
-                <Button onClick={wallet.disconnect} variant="secondary" className="w-full text-rose-500 border-rose-500/20 hover:bg-rose-500/5 text-xs font-semibold flex items-center justify-center gap-2">
+                <Button onClick={wallet.disconnect} variant="secondary" className="w-full text-rose-500 border-rose-500/20 hover:bg-rose-500/5 text-xs font-semibold flex items-center justify-center gap-2 font-raleway">
                   <LogOut className="h-4 w-4" />
                   Disconnect Wallet
                 </Button>
@@ -119,7 +119,7 @@ export function WalletPage() {
                 <Button
                   onClick={handleConnectFreighter}
                   disabled={connectingType !== null}
-                  className="h-12 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
+                  className="h-12 text-xs font-bold rounded-xl flex items-center justify-center gap-2 font-raleway"
                 >
                   {connectingType === "freighter" ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -132,7 +132,7 @@ export function WalletPage() {
                   onClick={handleConnectAlbedo}
                   disabled={connectingType !== null}
                   variant="secondary"
-                  className="h-12 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
+                  className="h-12 text-xs font-bold rounded-xl flex items-center justify-center gap-2 font-raleway"
                 >
                   {connectingType === "albedo" ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -149,15 +149,15 @@ export function WalletPage() {
         {/* Right Side: Balance and Assets */}
         <Card className="p-6 border-border/80 flex flex-col justify-between">
           <div className="space-y-2">
-            <h3 className="text-lg font-bold text-accent dark:text-white">Assets</h3>
+            <h3 className="text-lg font-bold text-accent dark:text-white font-raleway">Assets</h3>
             <p className="text-xs text-muted">Stellar native token balance querying.</p>
           </div>
 
           <div className="my-8 py-6 text-center border-y border-border/40 relative">
             <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Account Balance</p>
-            <p className="mt-2 text-4xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline justify-center gap-1">
+            <p className="mt-2 text-4xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline justify-center gap-1 font-raleway">
               {wallet.connected ? wallet.balance.toLocaleString() : "0.00"}
-              <span className="text-sm font-bold text-muted">XLM</span>
+              <span className="text-sm font-bold text-muted font-bradley">XLM</span>
             </p>
           </div>
 
@@ -170,7 +170,7 @@ export function WalletPage() {
                 href={`https://stellar.expert/explorer/testnet/account/${wallet.address}`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-accent dark:text-blue-400 hover:underline font-semibold"
+                className="inline-flex items-center gap-1.5 text-accent dark:text-blue-400 hover:underline font-semibold font-raleway"
               >
                 View account on Stellar.expert
                 <ExternalLink className="h-3.5 w-3.5" />
