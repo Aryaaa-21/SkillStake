@@ -30,6 +30,8 @@ import {
   ShieldCheck
 } from "lucide-react";
 
+import logo from "./logo.png";
+
 // Expand navigation links list to 10 requested screens + developer tools
 const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -121,7 +123,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className={`flex h-full flex-col ${collapsed ? "p-3" : "p-6"} transition-all duration-300`}>
       <div className={`mb-8 ${collapsed ? "flex flex-col items-center" : ""}`}>
         <Link to="/" className="flex items-center gap-2.5 text-2xl font-bold tracking-tight" aria-label="SkillStake Home">
-          <Sparkles className="h-6 w-6 text-accent dark:text-white" />
+          <img src={logo} alt="SkillStake Logo" className="h-6 w-6 rounded-lg object-contain" />
           {!collapsed && <span className="font-raleway font-bold text-accent dark:text-white">SkillStake</span>}
         </Link>
         {!collapsed && <p className="mt-2 text-xs text-muted leading-relaxed">Stake XLM on goals, verify progress, and earn XP.</p>}
@@ -309,14 +311,20 @@ export function AppShell({ children }: { children: ReactNode }) {
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
-                <div>
-                  <p className="text-[10px] font-bold text-muted uppercase tracking-wider text-label lg:block hidden">
-                    {activeLabel}
-                  </p>
-                  <h1 className="text-base lg:text-lg font-bold tracking-tight text-accent dark:text-white flex items-center gap-2">
-                    <span className="lg:hidden block">{activeLabel}</span>
-                    <span className="hidden lg:block">Control Panel</span>
-                  </h1>
+                <div className="flex items-center gap-2">
+                  <img src={logo} alt="SkillStake Logo" className="h-5 w-5 rounded object-contain lg:hidden" />
+                  <div>
+                    <p className="text-[10px] font-bold text-muted uppercase tracking-wider text-label lg:block hidden">
+                      {activeLabel}
+                    </p>
+                    <h1 className="text-base lg:text-lg font-bold tracking-tight text-accent dark:text-white flex items-center gap-2">
+                      <span className="lg:hidden block">{activeLabel}</span>
+                      <span className="hidden lg:block flex items-center gap-2">
+                        <img src={logo} alt="SkillStake Logo" className="h-5 w-5 rounded object-contain" />
+                        Control Panel
+                      </span>
+                    </h1>
+                  </div>
                 </div>
               </div>
 
