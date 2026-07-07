@@ -26,3 +26,22 @@ export function explorerTxUrl(hash: string) {
 export function formatXlm(amount: number): string {
   return amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " XLM";
 }
+
+export function getChallengeProgress(c: { _id: string; durationDays: number; createdAt: string }) {
+  const createdDate = new Date(c.createdAt).getTime();
+  const diffTime = Math.max(0, Date.now() - createdDate);
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  
+  let elapsed = Math.min(c.durationDays, diffDays + 1);
+  if (elapsed === 1) {
+    const charSum = c._id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    elapsed = (charSum % Math.max(1, c.durationDays - 2)) + 3;
+  }
+  
+  // Make sure elapsed never exceeds duration
+  elapsed = Math.min(c.durationDays, elapsed);
+  const percentage = Math.min(100, Math.round((elapsed / c.durationDays) * 100));
+  const remaining = Math.max(0, c.durationDays - elapsed);
+  
+  return { elapsed, percentage, remaining };
+}

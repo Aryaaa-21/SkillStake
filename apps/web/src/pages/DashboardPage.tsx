@@ -21,7 +21,7 @@ import {
 } from "recharts";
 import { useWallet } from "../lib/wallet";
 import { api } from "../lib/api";
-import { formatAmount, truncateAddress } from "../lib/utils";
+import { formatAmount, truncateAddress, getChallengeProgress } from "../lib/utils";
 import { Badge, Button, Card } from "../components/ui";
 import { LayoutDashboard, Coins, Flame, Star, Trophy, CheckCircle, AlertTriangle, Compass } from "lucide-react";
 
@@ -301,6 +301,71 @@ export function DashboardPage() {
           </div>
         </Card>
       </div>
+
+      {/* Active Challenges Progress Tracking */}
+      {(() => {
+        const activeChallenges = challengesList.filter((c) => c.status === "active" || c.status === "proof_submitted");
+        return (
+          <section className="space-y-4">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-label text-[10px] font-bold text-muted uppercase tracking-wider">Timeline Tracking</p>
+                <h3 className="text-lg font-bold text-accent dark:text-white">Active Challenge Progress</h3>
+              </div>
+              <Button variant="outline" size="sm" asChild className="text-[10px] h-8 px-3 rounded-lg font-semibold">
+                <Link to="/active">View All</Link>
+              </Button>
+            </div>
+
+            {activeChallenges.length > 0 ? (
+              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {activeChallenges.slice(0, 3).map((c) => {
+                  const prog = getChallengeProgress({ _id: c._id, durationDays: c.durationDays, createdAt: c.createdAt });
+                  return (
+                    <Card key={c._id} className="p-5 border-border/80 flex flex-col justify-between hover:shadow-md transition-all duration-200">
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <Badge className="bg-black/5 dark:bg-white/5 border-border text-[9px]">{c.category}</Badge>
+                          <span className="text-[10px] font-bold text-orange-500 font-mono">Day {prog.elapsed} / {c.durationDays}</span>
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold text-accent dark:text-white line-clamp-1">{c.title}</h4>
+                          <p className="text-[11px] text-muted line-clamp-2 mt-1">{c.description}</p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-border/40 space-y-2">
+                        <div className="flex justify-between text-[10px] text-muted">
+                          <span>{prog.percentage}% Complete</span>
+                          <span>{prog.remaining} days remaining</span>
+                        </div>
+                        <div className="w-full bg-black/5 dark:bg-white/5 rounded-full h-1.5">
+                          <div className="bg-accent dark:bg-white h-1.5 rounded-full" style={{ width: `${prog.percentage}%` }}></div>
+                        </div>
+                        <div className="flex justify-between items-center pt-1.5">
+                          <span className="text-[10px] font-bold text-accent dark:text-white">{c.stakeAmount} XLM Staked</span>
+                          <Button size="xs" variant="secondary" asChild className="text-[9px] h-7 px-2.5 rounded-md font-semibold">
+                            <Link to={`/challenge/${c._id}`}>Track</Link>
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  );
+                })}
+              </div>
+            ) : (
+              <Card className="flex min-h-[160px] flex-col items-center justify-center p-6 text-center border-dashed border-border bg-transparent">
+                <Trophy className="h-7 w-7 text-muted/60 mb-2" />
+                <h5 className="font-semibold text-accent dark:text-white text-xs">No active challenges</h5>
+                <p className="text-[11px] text-muted max-w-xs mt-1">Start a new escrow commitment to track daily streak progression here.</p>
+                <Button size="sm" asChild className="mt-3 text-[10px] h-8 px-3 rounded-lg font-semibold">
+                  <Link to="/create">Create Challenge</Link>
+                </Button>
+              </Card>
+            )}
+          </section>
+        );
+      })()}
 
       {/* Recent Activity */}
       <section className="grid gap-6 grid-cols-1 lg:grid-cols-[1.6fr_1fr]">

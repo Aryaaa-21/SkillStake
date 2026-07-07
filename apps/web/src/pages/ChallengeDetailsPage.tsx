@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import QRCode from "react-qr-code";
 import { TwitterShareButton, TelegramShareButton, WhatsappShareButton, TwitterIcon, TelegramIcon, WhatsappIcon } from "react-share";
 import { monitoring } from "../lib/monitoring";
+import { getChallengeProgress } from "../lib/utils";
 
 export function ChallengeDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -219,6 +220,23 @@ export function ChallengeDetailsPage() {
             </div>
           </div>
         </div>
+
+        {/* Challenge Day Progress Tracking */}
+        {(() => {
+          const prog = getChallengeProgress({ _id: challenge._id, durationDays: challenge.durationDays, createdAt: challenge.createdAt });
+          return (
+            <div className="pt-4 border-t border-border/40 space-y-2">
+              <div className="flex justify-between items-center text-xs font-semibold">
+                <span className="text-muted flex items-center gap-1">Challenge Timeline</span>
+                <span className="text-accent dark:text-white font-mono">Day {prog.elapsed} / {challenge.durationDays} ({prog.percentage}% Complete)</span>
+              </div>
+              <div className="w-full bg-black/5 dark:bg-white/5 rounded-full h-2">
+                <div className="bg-accent dark:bg-white h-2 rounded-full transition-all duration-300" style={{ width: `${prog.percentage}%` }}></div>
+              </div>
+              <p className="text-[10px] text-muted">{prog.remaining} days remaining</p>
+            </div>
+          );
+        })()}
       </Card>
 
       {/* Proof Submission & View Grid */}

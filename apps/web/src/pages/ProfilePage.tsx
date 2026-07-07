@@ -9,6 +9,7 @@ import {
 import { toast } from "sonner";
 import QRCode from "react-qr-code";
 import { TwitterShareButton, TelegramShareButton, WhatsappShareButton, TwitterIcon, TelegramIcon, WhatsappIcon } from "react-share";
+import { getChallengeProgress } from "../lib/utils";
 
 export function ProfilePage() {
   const wallet = useWallet();
@@ -190,6 +191,70 @@ export function ProfilePage() {
             </div>
           ))}
         </div>
+      </Card>
+
+      {/* My Accountability Challenges Progress Tracking */}
+      <Card className="p-6 border-border/80 space-y-6">
+        <div>
+          <h3 className="text-lg font-bold text-accent dark:text-white">My Active & Completed Challenges</h3>
+          <p className="text-xs text-muted">Daily progress timeline and resolution status for your escrows.</p>
+        </div>
+
+        {challenges.length > 0 ? (
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {challenges.map((c) => {
+              const prog = getChallengeProgress({ _id: c._id, durationDays: c.durationDays, createdAt: c.createdAt });
+              return (
+                <Card key={c._id} className="p-5 border-border/60 flex flex-col justify-between hover:shadow-md transition-all duration-200">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <Badge className="bg-black/5 dark:bg-white/5 border-border text-[9px]">{c.category}</Badge>
+                      <Badge className={`capitalize text-[9px] ${
+                        c.status === "completed" 
+                          ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" 
+                          : c.status === "failed" 
+                            ? "bg-rose-500/10 text-rose-500 border-rose-500/20" 
+                            : "bg-blue-500/10 text-blue-500 border-blue-500/20"
+                      }`}>
+                        {c.status.replaceAll("_", " ")}
+                      </Badge>
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-accent dark:text-white line-clamp-1">{c.title}</h4>
+                      <p className="text-[11px] text-muted line-clamp-2 mt-1">{c.description}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-border/40 space-y-2">
+                    <div className="flex justify-between text-[10px] text-muted">
+                      <span>Day {prog.elapsed} / {c.durationDays}</span>
+                      <span>{prog.percentage}% Complete</span>
+                    </div>
+                    <div className="w-full bg-black/5 dark:bg-white/5 rounded-full h-1.5">
+                      <div className="bg-accent dark:bg-white h-1.5 rounded-full" style={{ width: `${prog.percentage}%` }}></div>
+                    </div>
+                    <p className="text-[9px] text-muted">{prog.remaining} days remaining</p>
+                    <div className="flex justify-between items-center pt-1.5">
+                      <span className="text-[10px] font-bold text-accent dark:text-white">{c.stakeAmount} XLM</span>
+                      <Button size="xs" variant="secondary" asChild className="text-[9px] h-7 px-2.5 rounded-md font-semibold">
+                        <a href={`/challenge/${c._id}`}>View Details</a>
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        ) : (
+          <Card className="flex min-h-[160px] flex-col items-center justify-center p-6 text-center border-dashed border-border bg-transparent">
+            <Trophy className="h-7 w-7 text-muted/60 mb-2" />
+            <h5 className="font-semibold text-accent dark:text-white text-xs">No challenges created</h5>
+            <p className="text-[11px] text-muted max-w-xs mt-1">Deploy your first accountability contract to start progress tracking.</p>
+            <Button size="sm" asChild className="mt-3 text-[10px] h-8 px-3 rounded-lg font-semibold">
+              <a href="/create">Create Challenge</a>
+            </Button>
+          </Card>
+        )}
       </Card>
 
       {/* Share Drawer Modal */}
