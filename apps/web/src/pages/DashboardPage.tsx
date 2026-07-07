@@ -312,7 +312,7 @@ export function DashboardPage() {
                 <p className="text-label text-[10px] font-bold text-muted uppercase tracking-wider">Timeline Tracking</p>
                 <h3 className="text-lg font-bold text-accent dark:text-white">Active Challenge Progress</h3>
               </div>
-              <Button variant="outline" size="sm" asChild className="text-[10px] h-8 px-3 rounded-lg font-semibold">
+              <Button variant="ghost" asChild className="text-[10px] h-8 px-3 rounded-lg font-semibold">
                 <Link to="/active">View All</Link>
               </Button>
             </div>
@@ -344,7 +344,7 @@ export function DashboardPage() {
                         </div>
                         <div className="flex justify-between items-center pt-1.5">
                           <span className="text-[10px] font-bold text-accent dark:text-white">{c.stakeAmount} XLM Staked</span>
-                          <Button size="xs" variant="secondary" asChild className="text-[9px] h-7 px-2.5 rounded-md font-semibold">
+                          <Button variant="secondary" asChild className="text-[9px] h-7 px-2.5 rounded-md font-semibold">
                             <Link to={`/challenge/${c._id}`}>Track</Link>
                           </Button>
                         </div>
@@ -358,7 +358,7 @@ export function DashboardPage() {
                 <Trophy className="h-7 w-7 text-muted/60 mb-2" />
                 <h5 className="font-semibold text-accent dark:text-white text-xs">No active challenges</h5>
                 <p className="text-[11px] text-muted max-w-xs mt-1">Start a new escrow commitment to track daily streak progression here.</p>
-                <Button size="sm" asChild className="mt-3 text-[10px] h-8 px-3 rounded-lg font-semibold">
+                <Button asChild className="mt-3 text-[10px] h-8 px-3 rounded-lg font-semibold">
                   <Link to="/create">Create Challenge</Link>
                 </Button>
               </Card>

@@ -341,7 +341,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
                 {/* QUICK START WIZARD */}
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   onClick={() => setShowWizard(true)}
                   className="h-9.5 px-3 rounded-xl flex items-center gap-1.5 text-xs font-semibold border-accent/20 hover:border-accent hover:bg-accent/5 text-accent dark:text-white transition-colors"
                   aria-label="Open onboarding guide"
@@ -452,7 +452,7 @@ function OnboardingWizard({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
     }
   ];
 
-  const stepDetails = steps[currentStep - 1];
+  const stepDetails = (steps[currentStep - 1] || steps[0]) as { title: string; description: string; icon: string; badge: string; };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

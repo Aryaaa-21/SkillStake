@@ -257,7 +257,7 @@ export function ProfilePage() {
                     <p className="text-[9px] text-muted">{prog.remaining} days remaining</p>
                     <div className="flex justify-between items-center pt-1.5">
                       <span className="text-[10px] font-bold text-accent dark:text-white">{c.stakeAmount} XLM</span>
-                      <Button size="xs" variant="secondary" asChild className="text-[9px] h-7 px-2.5 rounded-md font-semibold">
+                      <Button variant="secondary" asChild className="text-[9px] h-7 px-2.5 rounded-md font-semibold">
                         <a href={`/challenge/${c._id}`}>View Details</a>
                       </Button>
                     </div>
@@ -271,7 +271,7 @@ export function ProfilePage() {
             <Trophy className="h-7 w-7 text-muted/60 mb-2" />
             <h5 className="font-semibold text-accent dark:text-white text-xs">No challenges created</h5>
             <p className="text-[11px] text-muted max-w-xs mt-1">Deploy your first accountability contract to start progress tracking.</p>
-            <Button size="sm" asChild className="mt-3 text-[10px] h-8 px-3 rounded-lg font-semibold">
+            <Button asChild className="mt-3 text-[10px] h-8 px-3 rounded-lg font-semibold">
               <a href="/create">Create Challenge</a>
             </Button>
           </Card>
