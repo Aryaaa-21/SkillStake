@@ -782,7 +782,9 @@ export const useDappStore = create<DappStore>()(
           level: xp > 3000 ? "Diamond" : xp > 1500 ? "Platinum" : xp > 750 ? "Gold" : xp > 250 ? "Silver" : "Bronze",
           totalXlmStaked: leaderboardUser.totalXlmStaked,
           successRate: leaderboardUser.successRate,
-          streakDays: xp >= 3000 ? 12 : 3
+          streakDays: xp >= 3000 ? 12 : 3,
+          userRank: leaderboardUser.rank,
+          validationCount: votesCastCount
         };
         
         return {

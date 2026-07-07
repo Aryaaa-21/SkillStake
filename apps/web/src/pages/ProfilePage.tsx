@@ -4,7 +4,7 @@ import { useDappStore } from "../lib/store";
 import { Card, Button, Badge, Progress } from "../components/ui";
 import { 
   User, Star, Flame, Trophy, Coins, QrCode, Copy, 
-  ExternalLink, Calendar, CheckCircle2, AlertTriangle, Share2 
+  ExternalLink, Calendar, CheckCircle2, AlertTriangle, Share2, ShieldCheck
 } from "lucide-react";
 import { toast } from "sonner";
 import QRCode from "react-qr-code";
@@ -132,6 +132,20 @@ export function ProfilePage() {
                 Current Streak
               </span>
               <span className="font-bold text-orange-500">{user.streakDays} Days</span>
+            </div>
+            <div className="flex justify-between items-center py-2.5 border-b border-border/40">
+              <span className="text-muted flex items-center gap-1.5">
+                <Star className="h-4 w-4 text-purple-500" />
+                Global Leaderboard Rank
+              </span>
+              <span className="font-bold text-accent dark:text-white">#{user.userRank}</span>
+            </div>
+            <div className="flex justify-between items-center py-2.5 border-b border-border/40">
+              <span className="text-muted flex items-center gap-1.5">
+                <ShieldCheck className="h-4 w-4 text-indigo-500" />
+                Validation Participation
+              </span>
+              <span className="font-bold text-accent dark:text-white">{user.validationCount} votes</span>
             </div>
           </div>
         </Card>

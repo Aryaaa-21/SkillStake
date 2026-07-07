@@ -212,6 +212,8 @@ export interface UserProfile {
   totalXlmStaked: number;
   successRate: number;
   streakDays: number;
+  userRank: number;
+  validationCount: number;
 }
 
 export interface AchievementSummary {
