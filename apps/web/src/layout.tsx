@@ -57,6 +57,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const setOnboardingCompleted = useDappStore((state) => state.setOnboardingCompleted);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const activeLabel = useMemo(() => navItems.find((item) => item.to === location.pathname)?.label ?? "SkillStake", [location.pathname]);
 
@@ -116,26 +117,28 @@ export function AppShell({ children }: { children: ReactNode }) {
     }
   };
 
-  const renderSidebarContent = () => (
-    <div className="flex h-full flex-col p-6">
-      <div className="mb-8">
+  const renderSidebarContent = (collapsed: boolean = false) => (
+    <div className={`flex h-full flex-col ${collapsed ? "p-3" : "p-6"} transition-all duration-300`}>
+      <div className={`mb-8 ${collapsed ? "flex flex-col items-center" : ""}`}>
         <Link to="/" className="flex items-center gap-2.5 text-2xl font-bold tracking-tight" aria-label="SkillStake Home">
           <Sparkles className="h-6 w-6 text-accent dark:text-white" />
-          <span>SkillStake</span>
+          {!collapsed && <span className="font-raleway font-bold text-accent dark:text-white">SkillStake</span>}
         </Link>
-        <p className="mt-2 text-xs text-muted leading-relaxed">Stake XLM on goals, verify progress, and earn XP.</p>
+        {!collapsed && <p className="mt-2 text-xs text-muted leading-relaxed">Stake XLM on goals, verify progress, and earn XP.</p>}
       </div>
 
-      <nav className="flex-1 space-y-1 overflow-y-auto pr-2 safe-scrollbar sidebar-nav-container" aria-label="Main Navigation">
+      <nav className="flex-1 space-y-1 overflow-y-auto pr-1 safe-scrollbar sidebar-nav-container" aria-label="Main Navigation">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
             <NavLink
               key={item.to}
               to={item.to}
+              title={collapsed ? item.label : undefined}
               className={({ isActive }) =>
                 [
-                  "group flex items-center justify-between rounded-xl px-3.5 py-3 text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                  "group flex items-center rounded-xl transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                  collapsed ? "justify-center p-3" : "justify-between px-3.5 py-3 text-sm font-medium",
                   isActive
                     ? "bg-accent text-accentFg font-semibold shadow-premium"
                     : "text-muted hover:bg-black/5 dark:hover:bg-white/5 hover:text-fg",
@@ -144,51 +147,66 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               <div className="flex items-center gap-3">
                 <Icon className="h-4.5 w-4.5 shrink-0" />
-                <span>{item.label}</span>
+                {!collapsed && <span className="font-raleway">{item.label}</span>}
               </div>
-              {item.to === "/dashboard" ? (
+              {!collapsed && item.to === "/dashboard" && (
                 <span className="flex h-2 w-2 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-              ) : null}
+              )}
             </NavLink>
           );
         })}
       </nav>
 
-      <Card className="mt-6 space-y-3.5 border-border/60 bg-black/[0.02] dark:bg-white/[0.02] p-4.5 rounded-xl">
-        <div className="flex items-center justify-between border-b border-border/40 pb-2">
-          <span className="text-[10px] font-bold text-muted uppercase tracking-wider">Wallet Connection</span>
-          {wallet.connected ? (
-            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-          ) : (
-            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-rose-500" />
-          )}
+      {/* Wallet Card */}
+      {!collapsed ? (
+        <Card className="mt-6 space-y-3.5 border-border/60 bg-black/[0.02] dark:bg-white/[0.02] p-4.5 rounded-xl">
+          <div className="flex items-center justify-between border-b border-border/40 pb-2">
+            <span className="text-[10px] font-bold text-muted uppercase tracking-wider">Wallet Connection</span>
+            {wallet.connected ? (
+              <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            ) : (
+              <span className="inline-flex h-1.5 w-1.5 rounded-full bg-rose-500" />
+            )}
+          </div>
+          <div className="grid gap-2.5 text-xs">
+            <div className="flex justify-between">
+              <span className="text-muted">Address</span>
+              <span className="font-mono font-medium">{wallet.address ? truncateAddress(wallet.address) : "Not connected"}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted">Network</span>
+              <span className="font-medium">
+                {networkQuery.data
+                  ? networkQuery.data.passphrase.includes("Public")
+                    ? "Public"
+                    : "Testnet"
+                  : "Loading"}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted">Reward Pool</span>
+              <span className="font-semibold text-accent dark:text-white">
+                {formatAmount(rewardPoolQuery.data?.rewardPool.currentBalance ?? 0)} XLM
+              </span>
+            </div>
+          </div>
+        </Card>
+      ) : (
+        <div className="mt-6 flex flex-col items-center justify-center p-2 rounded-xl border border-border/40 bg-black/[0.02] dark:bg-white/[0.02]" title={wallet.connected ? "Connected" : "Disconnected"}>
+          <div className={`h-2.5 w-2.5 rounded-full ${wallet.connected ? "bg-emerald-500 animate-pulse" : "bg-rose-500"}`} />
         </div>
-        <div className="grid gap-2.5 text-xs">
-          <div className="flex justify-between">
-            <span className="text-muted">Address</span>
-            <span className="font-mono font-medium">{wallet.address ? truncateAddress(wallet.address) : "Not connected"}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-muted">Network</span>
-            <span className="font-medium">
-              {networkQuery.data
-                ? networkQuery.data.passphrase.includes("Public")
-                  ? "Public"
-                  : "Testnet"
-                : "Loading"}
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-muted">Reward Pool</span>
-            <span className="font-semibold text-accent dark:text-white">
-              {formatAmount(rewardPoolQuery.data?.rewardPool.currentBalance ?? 0)} XLM
-            </span>
-          </div>
-        </div>
-      </Card>
+      )}
+
+      {/* Collapse Toggle Button for Desktop */}
+      <button
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className="mt-4 hidden lg:flex items-center justify-center gap-2 rounded-xl border border-border/50 py-2 text-xs font-semibold text-muted hover:bg-black/5 dark:hover:bg-white/5 hover:text-fg transition-all duration-200"
+      >
+        {isCollapsed ? "→" : "← Collapse"}
+      </button>
     </div>
   );
 
@@ -231,8 +249,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="relative mx-auto flex min-h-screen max-w-[1600px] flex-col lg:flex-row">
         
         {/* DESKTOP FIXED SIDEBAR */}
-        <aside className="glass sticky top-0 hidden h-screen w-72 shrink-0 flex-col border-r border-border/80 lg:flex z-30">
-          {renderSidebarContent()}
+        <aside className={`glass sticky top-0 hidden h-screen ${isCollapsed ? "w-20" : "w-60"} shrink-0 flex-col border-r border-border/80 lg:flex z-30 transition-all duration-300`}>
+          {renderSidebarContent(isCollapsed)}
         </aside>
 
         {/* MOBILE SLIDE-OUT DRAWER */}
@@ -255,7 +273,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 220 }}
-                className="glass fixed bottom-0 left-0 top-0 z-50 h-full w-72 max-w-[85vw] border-r border-border/80 lg:hidden flex flex-col shadow-2xl"
+                className="glass fixed bottom-0 left-0 top-0 z-50 h-full w-60 max-w-[85vw] border-r border-border/80 lg:hidden flex flex-col shadow-2xl"
               >
                 <div className="absolute right-4 top-5">
                   <Button
@@ -267,7 +285,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                     <X className="h-5 w-5" />
                   </Button>
                 </div>
-                {renderSidebarContent()}
+                {renderSidebarContent(false)}
               </motion.aside>
             </>
           )}
