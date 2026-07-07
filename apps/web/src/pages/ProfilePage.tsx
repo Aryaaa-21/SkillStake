@@ -40,12 +40,19 @@ export function ProfilePage() {
   const xpProgress = user.xp % 1000;
   const nextLevelXp = 1000;
   
-  const shareUrl = window.location.href;
-  const shareTitle = `Check out my accountability profile on SkillStake (Level: ${user.level}, XP: ${user.xp})!`;
+  const [shareTab, setShareTab] = useState<"profile" | "referral">("profile");
+
+  const profileUrl = window.location.href;
+  const inviteUrl = `${window.location.origin}/create?ref=${wallet.address || ""}`;
+
+  const currentShareUrl = shareTab === "profile" ? profileUrl : inviteUrl;
+  const currentShareTitle = shareTab === "profile"
+    ? `Check out my accountability profile on SkillStake (Level: ${user.level}, XP: ${user.xp})!`
+    : `Stake XLM on your goals and join me on SkillStake!`;
 
   const copyProfileLink = () => {
-    navigator.clipboard.writeText(shareUrl);
-    toast.success("Profile share link copied");
+    navigator.clipboard.writeText(currentShareUrl);
+    toast.success(`${shareTab === "profile" ? "Profile" : "Referral invite"} link copied`);
   };
 
   return (
@@ -282,35 +289,72 @@ export function ProfilePage() {
           <div className="relative w-full max-w-sm z-10">
             <Card className="p-6 border-border bg-card shadow-2xl relative">
               <div className="text-center space-y-4">
-                <h4 className="text-base font-bold text-accent dark:text-white">Share reputation</h4>
+                <h4 className="text-base font-bold text-accent dark:text-white">Share & Invite</h4>
+
+                {/* Tab Selector */}
+                <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-xl border border-border/40">
+                  <button
+                    onClick={() => setShareTab("profile")}
+                    className={`flex-1 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider transition-all duration-150 ${
+                      shareTab === "profile"
+                        ? "bg-accent text-white dark:bg-white dark:text-accent shadow-sm"
+                        : "text-muted hover:text-accent dark:hover:text-white"
+                    }`}
+                  >
+                    Profile Direct
+                  </button>
+                  <button
+                    onClick={() => setShareTab("referral")}
+                    className={`flex-1 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider transition-all duration-150 ${
+                      shareTab === "referral"
+                        ? "bg-accent text-white dark:bg-white dark:text-accent shadow-sm"
+                        : "text-muted hover:text-accent dark:hover:text-white"
+                    }`}
+                  >
+                    Referral Invite
+                  </button>
+                </div>
                 
                 {/* QR Code */}
                 <div className="inline-block p-4 bg-white rounded-2xl shadow-inner mx-auto">
-                  <QRCode value={shareUrl} size={150} />
+                  <QRCode value={currentShareUrl} size={150} />
                 </div>
                 
-                <p className="text-[11px] text-muted">Scan to open my user profile dashboard on the Stellar network.</p>
+                <p className="text-[11px] text-muted leading-relaxed">
+                  {shareTab === "profile"
+                    ? "Scan to inspect staker accountability stats, unlocked badges, and success rating on the Stellar network."
+                    : "Scan to refer a new staker and earn XP multipliers upon their first Soroban stake."}
+                </p>
+
+                {/* Link Input Field */}
+                <div className="flex gap-1.5 p-1.5 bg-black/5 dark:bg-white/5 border border-border/40 rounded-xl">
+                  <input
+                    type="text"
+                    readOnly
+                    value={currentShareUrl}
+                    className="flex-1 bg-transparent text-[10px] font-mono text-accent dark:text-white outline-none px-2 select-all truncate"
+                  />
+                  <Button onClick={copyProfileLink} variant="secondary" className="h-7 px-2.5 rounded-lg text-[9px] font-semibold shrink-0">
+                    Copy
+                  </Button>
+                </div>
                 
                 {/* Social Share Buttons */}
                 <div className="flex justify-center gap-3 py-2 border-y border-border/40">
-                  <TwitterShareButton url={shareUrl} title={shareTitle}>
+                  <TwitterShareButton url={currentShareUrl} title={currentShareTitle}>
                     <TwitterIcon size={32} round />
                   </TwitterShareButton>
-                  <TelegramShareButton url={shareUrl} title={shareTitle}>
+                  <TelegramShareButton url={currentShareUrl} title={currentShareTitle}>
                     <TelegramIcon size={32} round />
                   </TelegramShareButton>
-                  <WhatsappShareButton url={shareUrl} title={shareTitle}>
+                  <WhatsappShareButton url={currentShareUrl} title={currentShareTitle}>
                     <WhatsappIcon size={32} round />
                   </WhatsappShareButton>
                 </div>
                 
-                <div className="flex gap-2">
-                  <Button onClick={copyProfileLink} variant="secondary" className="flex-1 text-xs h-9 rounded-xl flex items-center justify-center gap-1.5">
-                    <Copy className="h-4 w-4" />
-                    Copy Link
-                  </Button>
-                  <Button onClick={() => setShowShareModal(false)} className="flex-1 text-xs h-9 rounded-xl">
-                    Close
+                <div className="flex gap-2 pt-1">
+                  <Button onClick={() => setShowShareModal(false)} className="flex-1 text-xs h-9.5 rounded-xl font-bold">
+                    Done
                   </Button>
                 </div>
               </div>
