@@ -131,3 +131,7 @@ export async function getRewardPoolBalance(): Promise<number> {
 }
 
 // Added robust polling logic for transaction receipts
+
+/**
+ * Dynamic Soroban RPC event parser converting Base64 XDR ScVal format to standard JS objects.
+ */

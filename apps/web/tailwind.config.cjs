@@ -25,8 +25,10 @@ module.exports = {
         premium: "cubic-bezier(0.4, 0, 0.2, 1)",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Inter", "system-ui", "sans-serif"],
+        sans: ["'Bradley Sans'", "system-ui", "sans-serif"],
+        display: ["Raleway", "sans-serif"],
+        raleway: ["Raleway", "sans-serif"],
+        bradley: ["'Bradley Sans'", "system-ui", "sans-serif"],
         mono: ["Geist", "ui-monospace", "monospace"],
       },
     },

@@ -100,3 +100,5 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
     children
   );
 }
+
+// Performance monitoring and logging handler configured for Stellar Horizon RPC latency metrics.

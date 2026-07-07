@@ -700,123 +700,78 @@ export const useDappStore = create<DappStore>()(
         
         // Badges calculation based on real interactions
         const achievementsList = [];
-        
-        // Badge 1: First Challenge
-        if (userChallenges.length >= 1 || xp >= 100) {
-          achievementsList.push({
-            code: "first-challenge",
-            title: "First Challenge",
-            description: "Created your first accountability challenge.",
-            xpReward: 100,
-            unlocked: true,
-            icon: "🎯"
-          });
-        } else {
-          achievementsList.push({
-            code: "first-challenge",
-            title: "First Challenge",
-            description: "Created your first accountability challenge.",
-            xpReward: 100,
-            unlocked: false,
-            icon: "🎯"
-          });
-        }
-
-        // Badge 2: First Completion
         const completedCount = userChallenges.filter(c => c.status === "completed").length;
-        if (completedCount >= 1 || xp >= 400) {
-          achievementsList.push({
-            code: "first-completion",
-            title: "First Completion",
-            description: "Successfully retrieved a locked escrow stake.",
-            xpReward: 250,
-            unlocked: true,
-            icon: "🏆"
-          });
-        } else {
-          achievementsList.push({
-            code: "first-completion",
-            title: "First Completion",
-            description: "Successfully retrieved a locked escrow stake.",
-            xpReward: 250,
-            unlocked: false,
-            icon: "🏆"
-          });
-        }
+        const votesCastCount = state.activities.filter(a => a.actorAddress === address && (a.kind === "proof_approved" || a.kind === "proof_rejected")).length;
 
-        // Badge 3: 5 Completed Challenges
-        if (completedCount >= 5) {
-          achievementsList.push({
-            code: "five-completions",
-            title: "Accountability Guru",
-            description: "Completed 5 stakes successfully.",
-            xpReward: 500,
-            unlocked: true,
-            icon: "🔥"
-          });
-        } else {
-          achievementsList.push({
-            code: "five-completions",
-            title: "Accountability Guru",
-            description: "Complete 5 stakes successfully to unlock.",
-            xpReward: 500,
-            unlocked: false,
-            icon: "🔥"
-          });
-        }
-
-        // Badge 4: 10 Completed Challenges
-        if (completedCount >= 10) {
-          achievementsList.push({
-            code: "ten-completions",
-            title: "Stellar Legend",
-            description: "Completed 10 stakes successfully.",
-            xpReward: 1000,
-            unlocked: true,
-            icon: "⚡"
-          });
-        } else {
-          achievementsList.push({
-            code: "ten-completions",
-            title: "Stellar Legend",
-            description: "Complete 10 stakes successfully to unlock.",
-            xpReward: 1000,
-            unlocked: false,
-            icon: "⚡"
-          });
-        }
-
-        // Badge 5: 30 Day Streak
+        // Badge 1: First Stake
         achievementsList.push({
-          code: "streak-30",
-          title: "Unstoppable Force",
-          description: "Maintain a 30-day streak of daily progress check-ins.",
-          xpReward: 800,
-          unlocked: xp >= 2500, // Show unlocked for master account
-          icon: "📅"
+          code: "first-stake",
+          title: "First Stake",
+          description: "Locked your first XLM stake in a Soroban escrow contract.",
+          xpReward: 150,
+          unlocked: userChallenges.length >= 1 || xp >= 100,
+          icon: "🔒"
         });
 
-        // Badge 6: Community Champion (voting badge)
-        const votesCastCount = state.activities.filter(a => a.actorAddress === address && (a.kind === "proof_approved" || a.kind === "proof_rejected")).length;
-        if (votesCastCount >= 3 || xp >= 1500) {
-          achievementsList.push({
-            code: "community-champion",
-            title: "Community Champion",
-            description: "Participated in 3 or more community validations.",
-            xpReward: 300,
-            unlocked: true,
-            icon: "🔎"
-          });
-        } else {
-          achievementsList.push({
-            code: "community-champion",
-            title: "Community Champion",
-            description: "Participate in 3 or more validations.",
-            xpReward: 300,
-            unlocked: false,
-            icon: "🔎"
-          });
-        }
+        // Badge 2: First Challenge
+        achievementsList.push({
+          code: "first-challenge",
+          title: "First Challenge",
+          description: "Created your first accountability challenge.",
+          xpReward: 100,
+          unlocked: userChallenges.length >= 1 || xp >= 100,
+          icon: "🎯"
+        });
+
+        // Badge 3: First Completion
+        achievementsList.push({
+          code: "first-completion",
+          title: "First Completion",
+          description: "Successfully retrieved a locked escrow stake.",
+          xpReward: 250,
+          unlocked: completedCount >= 1 || xp >= 400,
+          icon: "🏆"
+        });
+
+        // Badge 4: 7 Day Streak
+        achievementsList.push({
+          code: "streak-7",
+          title: "7 Day Streak",
+          description: "Maintain a 7-day streak of daily progress check-ins.",
+          xpReward: 200,
+          unlocked: xp >= 750,
+          icon: "🔥"
+        });
+
+        // Badge 5: 30 Day Warrior
+        achievementsList.push({
+          code: "streak-30",
+          title: "30 Day Warrior",
+          description: "Maintain a 30-day streak of daily progress check-ins.",
+          xpReward: 500,
+          unlocked: xp >= 2500,
+          icon: "🛡️"
+        });
+
+        // Badge 6: Community Validator
+        achievementsList.push({
+          code: "community-champion",
+          title: "Community Validator",
+          description: "Participated in 3 or more community validations.",
+          xpReward: 300,
+          unlocked: votesCastCount >= 3 || xp >= 1500,
+          icon: "🔎"
+        });
+
+        // Badge 7: Top Performer
+        achievementsList.push({
+          code: "top-performer",
+          title: "Top Performer",
+          description: "Earn top ranking on the global staker leaderboard.",
+          xpReward: 400,
+          unlocked: xp >= 3000,
+          icon: "👑"
+        });
 
         const profileUser: UserProfile = {
           walletAddress: address,
@@ -827,7 +782,9 @@ export const useDappStore = create<DappStore>()(
           level: xp > 3000 ? "Diamond" : xp > 1500 ? "Platinum" : xp > 750 ? "Gold" : xp > 250 ? "Silver" : "Bronze",
           totalXlmStaked: leaderboardUser.totalXlmStaked,
           successRate: leaderboardUser.successRate,
-          streakDays: xp >= 3000 ? 12 : 3
+          streakDays: xp >= 3000 ? 12 : 3,
+          userRank: leaderboardUser.rank,
+          validationCount: votesCastCount
         };
         
         return {
@@ -843,3 +800,5 @@ export const useDappStore = create<DappStore>()(
     }
   )
 );
+
+// Local cache store utilizing Zustand persist middleware to maintain transaction telemetry states.
