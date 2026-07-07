@@ -60,6 +60,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [showWizard, setShowWizard] = useState(!onboardingCompleted);
 
   const activeLabel = useMemo(() => navItems.find((item) => item.to === location.pathname)?.label ?? "SkillStake", [location.pathname]);
 
@@ -338,6 +339,17 @@ export function AppShell({ children }: { children: ReactNode }) {
                   </span>
                 </div>
 
+                {/* QUICK START WIZARD */}
+                <Button
+                  variant="outline"
+                  onClick={() => setShowWizard(true)}
+                  className="h-9.5 px-3 rounded-xl flex items-center gap-1.5 text-xs font-semibold border-accent/20 hover:border-accent hover:bg-accent/5 text-accent dark:text-white transition-colors"
+                  aria-label="Open onboarding guide"
+                >
+                  <Sparkles className="h-4 w-4 text-purple-500 animate-pulse" />
+                  <span>Quick Start</span>
+                </Button>
+
                 {/* THEME TOGGLE */}
                 <Button
                   variant="secondary"
@@ -388,6 +400,132 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
       </div>
+
+      <AnimatePresence>
+        {showWizard && (
+          <OnboardingWizard
+            isOpen={showWizard}
+            onClose={() => {
+              setShowWizard(false);
+              setOnboardingCompleted(true);
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function OnboardingWizard({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [currentStep, setCurrentStep] = useState(1);
+  
+  const steps = [
+    {
+      title: "1. Profile Setup & Wallet Connection",
+      description: "Connect your Stellar Freighter or Albedo wallet. Your unique account keys act as your decentralized identity on the SkillStake protocol.",
+      icon: "🔑",
+      badge: "Step 1 of 5"
+    },
+    {
+      title: "2. Selecting Template or Custom Stake",
+      description: "Pick from one of our rapid onboarding challenge templates (DSA, Gym, Coding, Reading, Exam) or customize your own habit commitment.",
+      icon: "🎯",
+      badge: "Step 2 of 5"
+    },
+    {
+      title: "3. Depositing XLM & Locking Escrow",
+      description: "Lock your target XLM stake into the Soroban escrow smart contract. This provides the financial accountability to keep you focused.",
+      icon: "🔒",
+      badge: "Step 3 of 5"
+    },
+    {
+      title: "4. Submitting Daily Evidence",
+      description: "Upload GitHub commits, screenshots, or text evidence logs as daily proof of your progress to show the community validator network.",
+      icon: "📝",
+      badge: "Step 4 of 5"
+    },
+    {
+      title: "5. Verification & Stake Retrieval",
+      description: "Community validators inspect your evidence. Upon successful approval votes, your staked XLM is returned with XP level multipliers!",
+      icon: "🏆",
+      badge: "Step 5 of 5"
+    }
+  ];
+
+  const stepDetails = steps[currentStep - 1];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        className="relative w-full max-w-md z-10"
+      >
+        <Card className="p-6 border-border bg-card shadow-2xl space-y-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="flex justify-between items-center">
+            <span className="text-[10px] font-bold text-accent dark:text-white uppercase tracking-wider bg-accent/10 dark:bg-white/10 px-2.5 py-1 rounded-full">
+              {stepDetails.badge}
+            </span>
+            <button onClick={onClose} className="text-muted hover:text-accent dark:hover:text-white text-xs font-semibold">
+              Skip
+            </button>
+          </div>
+
+          <div className="text-center py-4 space-y-3">
+            <span className="text-4xl p-2.5 bg-black/5 dark:bg-white/5 border border-border/40 rounded-2xl inline-block shadow-sm">
+              {stepDetails.icon}
+            </span>
+            <h3 className="text-base font-bold text-accent dark:text-white font-raleway">{stepDetails.title}</h3>
+            <p className="text-xs text-muted leading-relaxed max-w-xs mx-auto">{stepDetails.description}</p>
+          </div>
+
+          {/* Progress Indicators (Dots) */}
+          <div className="flex justify-center gap-1.5 py-1">
+            {steps.map((_, idx) => (
+              <span
+                key={idx}
+                className={`h-1.5 rounded-full transition-all duration-200 ${
+                  currentStep === idx + 1 ? "w-6 bg-accent dark:bg-white" : "w-1.5 bg-border"
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="flex gap-2">
+            {currentStep > 1 && (
+              <Button
+                variant="secondary"
+                onClick={() => setCurrentStep(currentStep - 1)}
+                className="flex-1 text-xs h-9.5 rounded-xl font-semibold"
+              >
+                Back
+              </Button>
+            )}
+            <Button
+              onClick={() => {
+                if (currentStep < 5) {
+                  setCurrentStep(currentStep + 1);
+                } else {
+                  onClose();
+                }
+              }}
+              className="flex-1 text-xs h-9.5 rounded-xl font-semibold"
+            >
+              {currentStep === 5 ? "Get Started" : "Next Step"}
+            </Button>
+          </div>
+        </Card>
+      </motion.div>
     </div>
   );
 }
