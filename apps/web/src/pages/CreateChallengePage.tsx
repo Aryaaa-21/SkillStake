@@ -28,8 +28,8 @@ export function CreateChallengePage() {
   
   const templates = [
     {
-      title: "✨ Template: Complete 30 Days of DSA",
-      description: "Write and commit at least one data structures and algorithms solution to GitHub every single day.\n\nRequired Proof:\n1. Public GitHub repository link containing daily commits.\n2. Progress screenshot showing the commit history graph.",
+      title: "30 Day DSA Challenge",
+      description: "Solve at least one Data Structures & Algorithms problem daily on LeetCode/HackerRank.\n\nRequired Proof:\n1. Link to public GitHub repository with your daily solutions.\n2. Screenshot of daily streak dashboard.",
       category: "Learning",
       stakeAmount: 100,
       durationDays: 30,
@@ -37,22 +37,40 @@ export function CreateChallengePage() {
       icon: BookOpen
     },
     {
-      title: "✨ Template: Run 50 Kilometers in 2 Weeks",
-      description: "Perform running workouts to log a total distance of at least 50 kilometers within a 14-day period.\n\nRequired Proof:\n1. Public Strava activity sharing links.\n2. Screenshot of the workout summary dashboard displaying total distance.",
+      title: "30 Day Gym Challenge",
+      description: "Hit the gym or perform a workout for at least 45 minutes daily for 30 days.\n\nRequired Proof:\n1. Strava or fitness tracker workout share link.\n2. Selfie or gym check-in confirmation.",
       category: "Fitness",
       stakeAmount: 150,
-      durationDays: 14,
+      durationDays: 30,
       verificationThreshold: 3,
       icon: Award
     },
     {
-      title: "✨ Template: Build and Deploy Soroban Contract",
-      description: "Design, test, and deploy a simple custom Soroban smart contract on the Stellar Testnet.\n\nRequired Proof:\n1. Deployed Contract ID on stellar.expert explorer.\n2. Link to public GitHub repository containing the contract source code.",
+      title: "30 Day Coding Challenge",
+      description: "Write code for a personal project or open source contribution for at least 1 hour daily.\n\nRequired Proof:\n1. Public GitHub commit history link.\n2. Brief daily log of features implemented.",
       category: "Development",
       stakeAmount: 200,
-      durationDays: 7,
-      verificationThreshold: 4,
+      durationDays: 30,
+      verificationThreshold: 3,
       icon: Terminal
+    },
+    {
+      title: "Reading Habit Challenge",
+      description: "Read at least 15 pages of a non-fiction or educational book every single day.\n\nRequired Proof:\n1. Photo of highlighted pages or kindle history screenshot.\n2. Summarized key takeaways in daily text log.",
+      category: "Habits",
+      stakeAmount: 50,
+      durationDays: 14,
+      verificationThreshold: 2,
+      icon: BookOpen
+    },
+    {
+      title: "Exam Preparation Challenge",
+      description: "Spend at least 3 hours daily studying and solving practice tests for your upcoming certification/exam.\n\nRequired Proof:\n1. Study log showing hours spent.\n2. Practice test scorecard screenshots.",
+      category: "Learning",
+      stakeAmount: 120,
+      durationDays: 21,
+      verificationThreshold: 3,
+      icon: Award
     }
   ];
 
