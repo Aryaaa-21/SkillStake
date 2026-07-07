@@ -14,12 +14,24 @@ SkillStake is a fully decentralized accountability platform built on Stellar. Us
 
 ## Key Features
 
+- **Interactive Quick Start Wizard**: A step-by-step interactive onboarding guide explaining how escrows, voting, and proof uploads function.
+- **Challenge Progress Timeline**: Custom day trackers, percentage progress bars, and days-remaining logs for active challenges.
+- **Achievement & Badge System**: 7 unlockable Web3 achievement badges (e.g. First Stake, Community Validator, Top Performer) with custom XP rewards.
+- **Reputation Metrics**: Detailed staker ranking, streak count, success rate, and vote participation metrics visible on user profiles.
+- **Growth & Referral Sharing**: Custom invite links, QR codes, and pre-formatted sharing widgets for WhatsApp and Telegram.
 - **Stellar Wallet Authentication**: Connect via Freighter or Albedo wallets securely.
 - **Direct Soroban Interactions**: Challenge escrow and verification logic executed entirely on-chain.
 - **XLM Stake-Based Challenges**: Enforce accountability through token commitments.
 - **Community-Driven Verification**: Multi-party voting mechanism to determine challenge completion.
 - **On-Chain Reward Pool**: Distribute failed stakes to incentivize community verifiers.
 - **Client-Side State Persistence**: Local and persistent state via Zustand.
+
+
+
+
+
+
+
 
 ## Tech Stack
 
