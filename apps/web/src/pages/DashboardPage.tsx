@@ -94,91 +94,91 @@ export function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-[1440px] mx-auto">
       {/* Page Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/40 pb-5">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/40 pb-6">
+        <div className="space-y-1">
+          <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2 font-raleway">
             <LayoutDashboard className="h-6 w-6 text-accent dark:text-white" />
             Control Surface Dashboard
           </h2>
           <p className="text-sm text-muted">DeFi accountability metrics, smart contract escrow logs, and telemetry charts.</p>
         </div>
         <div className="flex gap-2">
-          <Button asChild className="text-xs h-9.5 px-4 rounded-xl shadow-premium">
+          <Button asChild className="text-xs h-9.5 px-4 rounded-xl shadow-premium font-raleway">
             <Link to="/create">Create Challenge</Link>
           </Button>
-          <Button variant="secondary" asChild className="text-xs h-9.5 px-4 rounded-xl">
+          <Button variant="secondary" asChild className="text-xs h-9.5 px-4 rounded-xl font-raleway">
             <Link to="/validation">User Validation</Link>
           </Button>
         </div>
       </div>
 
       {/* Analytics Statistics Cards */}
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="tour-step-stats">
-        <Card className="p-5 border-border/80 relative overflow-hidden group">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="tour-step-stats">
+        <Card className="border-border/80 relative overflow-hidden group p-6">
           <p className="text-label text-[10px] font-bold text-muted uppercase tracking-wider">Total XLM Staked</p>
-          <p className="mt-3 text-3xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline gap-1">
+          <p className="mt-3 text-3xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline gap-1 font-raleway">
             <CountUp end={totalStaked || 500} duration={1.5} separator="," decimals={0} />
-            <span className="text-xs font-semibold text-muted">XLM</span>
+            <span className="text-xs font-semibold text-muted font-bradley">XLM</span>
           </p>
           <p className="mt-2 text-xs text-muted leading-relaxed truncate">Total locked across challenge escrows.</p>
           <Coins className="absolute bottom-4 right-4 h-6 w-6 text-muted/20 group-hover:scale-110 transition-transform" />
         </Card>
 
-        <Card className="p-5 border-border/80 relative overflow-hidden group">
+        <Card className="border-border/80 relative overflow-hidden group p-6">
           <p className="text-label text-[10px] font-bold text-muted uppercase tracking-wider">Success Rate</p>
-          <p className="mt-3 text-3xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline gap-1">
+          <p className="mt-3 text-3xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline gap-1 font-raleway">
             <CountUp end={successRate} duration={1.5} />
-            <span className="text-xs font-semibold text-muted">%</span>
+            <span className="text-xs font-semibold text-muted font-bradley">%</span>
           </p>
           <p className="mt-2 text-xs text-muted leading-relaxed truncate">Ratio of completed to failed challenges.</p>
           <Trophy className="absolute bottom-4 right-4 h-6 w-6 text-muted/20 group-hover:scale-110 transition-transform" />
         </Card>
 
-        <Card className="p-5 border-border/80 relative overflow-hidden group">
+        <Card className="border-border/80 relative overflow-hidden group p-6">
           <p className="text-label text-[10px] font-bold text-muted uppercase tracking-wider">Current Streak</p>
-          <p className="mt-3 text-3xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline gap-1">
+          <p className="mt-3 text-3xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline gap-1 font-raleway">
             <CountUp end={currentStreak} duration={1.5} />
-            <span className="text-xs font-semibold text-muted">Days</span>
+            <span className="text-xs font-semibold text-muted font-bradley">Days</span>
           </p>
           <p className="mt-2 text-xs text-muted leading-relaxed truncate">Consecutive days of logged habit validation.</p>
           <Flame className="absolute bottom-4 right-4 h-6 w-6 text-muted/20 group-hover:scale-110 transition-transform" />
         </Card>
 
-        <Card className="p-5 border-border/80 relative overflow-hidden group">
+        <Card className="border-border/80 relative overflow-hidden group p-6">
           <p className="text-label text-[10px] font-bold text-muted uppercase tracking-wider">Reputation Score</p>
-          <p className="mt-3 text-3xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline gap-1">
+          <p className="mt-3 text-3xl font-extrabold tracking-tight text-accent dark:text-white flex items-baseline gap-1 font-raleway">
             <CountUp end={reputationScore} duration={1.5} />
-            <span className="text-xs font-semibold text-muted">/100</span>
+            <span className="text-xs font-semibold text-muted font-bradley">/100</span>
           </p>
           <p className="mt-2 text-xs text-muted leading-relaxed truncate">Weighted score of validator consistency.</p>
           <Star className="absolute bottom-4 right-4 h-6 w-6 text-muted/20 group-hover:scale-110 transition-transform" />
         </Card>
       </div>
 
-      <div className="grid gap-4 grid-cols-2 sm:grid-cols-4">
-        <Card className="p-4 border-border/80 text-center">
+      <div className="grid gap-6 grid-cols-2 sm:grid-cols-4">
+        <Card className="border-border/80 text-center p-6">
           <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Total Challenges</p>
-          <p className="mt-1.5 text-2xl font-bold text-accent dark:text-white">
+          <p className="mt-1.5 text-2xl font-bold text-accent dark:text-white font-raleway">
             <CountUp end={totalCount || 3} duration={1.2} />
           </p>
         </Card>
-        <Card className="p-4 border-border/80 text-center">
+        <Card className="border-border/80 text-center p-6">
           <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Active</p>
-          <p className="mt-1.5 text-2xl font-bold text-accent dark:text-white">
+          <p className="mt-1.5 text-2xl font-bold text-accent dark:text-white font-raleway">
             <CountUp end={activeCount || 2} duration={1.2} />
           </p>
         </Card>
-        <Card className="p-4 border-border/80 text-center text-emerald-500">
+        <Card className="border-border/80 text-center text-emerald-500 p-6">
           <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Completed</p>
-          <p className="mt-1.5 text-2xl font-bold">
+          <p className="mt-1.5 text-2xl font-bold font-raleway">
             <CountUp end={completedCount || 1} duration={1.2} />
           </p>
         </Card>
-        <Card className="p-4 border-border/80 text-center text-rose-500">
+        <Card className="border-border/80 text-center text-rose-500 p-6">
           <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Failed</p>
-          <p className="mt-1.5 text-2xl font-bold">
+          <p className="mt-1.5 text-2xl font-bold font-raleway">
             <CountUp end={failedCount || 0} duration={1.2} />
           </p>
         </Card>
