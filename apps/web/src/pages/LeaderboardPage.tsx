@@ -16,11 +16,11 @@ export function LeaderboardPage() {
   const list = leaderboard.data?.rows ?? [];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-[1440px] mx-auto">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/40 pb-5">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/40 pb-6">
+        <div className="space-y-1">
+          <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2 font-raleway">
             <Trophy className="h-6 w-6 text-accent dark:text-white" />
             Rankings and Reputation
           </h2>
@@ -29,10 +29,10 @@ export function LeaderboardPage() {
       </div>
 
       {/* Scope Toggles */}
-      <Card className="p-4 border-border/80 flex flex-wrap gap-2 items-center justify-between" id="tour-step-leaderboard">
+      <Card className="border-border/80 flex flex-wrap gap-4 items-center justify-between p-6" id="tour-step-leaderboard">
         <div className="flex items-center gap-2">
           <BarChart3 className="h-4.5 w-4.5 text-muted" />
-          <span className="text-xs font-bold text-accent dark:text-white uppercase tracking-wider">Sort metrics</span>
+          <span className="text-xs font-bold text-accent dark:text-white uppercase tracking-wider font-raleway">Sort metrics</span>
         </div>
 
         <div className="flex gap-1.5 overflow-x-auto pb-1 sm:pb-0">
@@ -40,7 +40,7 @@ export function LeaderboardPage() {
             <button
               key={tab}
               onClick={() => setScope(tab)}
-              className={`rounded-xl border px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-all duration-200 whitespace-nowrap ${
+              className={`rounded-xl border px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-all duration-200 whitespace-nowrap font-raleway ${
                 scope === tab
                   ? "border-accent bg-accent/5 text-accent dark:text-white"
                   : "border-border hover:border-accent/40 bg-transparent text-muted"
@@ -57,7 +57,7 @@ export function LeaderboardPage() {
         <div className="overflow-x-auto safe-scrollbar">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-border/40 bg-black/[0.01] dark:bg-white/[0.005] text-[10px] font-bold text-muted uppercase tracking-wider">
+              <tr className="border-b border-border/40 bg-black/[0.01] dark:bg-white/[0.005] text-[10px] font-bold text-muted uppercase tracking-wider font-raleway">
                 <th className="py-4 px-6 text-center w-16">Rank</th>
                 <th className="py-4 px-6">Participant</th>
                 <th className="py-4 px-6 text-center">XP Level</th>
@@ -79,7 +79,7 @@ export function LeaderboardPage() {
               ) : list.length > 0 ? (
                 list.map((row: any, idx: number) => (
                   <tr key={idx} className="hover:bg-black/[0.005] dark:hover:bg-white/[0.003] transition-colors">
-                    <td className="py-4 px-6 text-center font-extrabold text-accent dark:text-white">
+                    <td className="py-4 px-6 text-center font-extrabold text-accent dark:text-white font-raleway">
                       {row.rank === 1 ? (
                         <Award className="h-5 w-5 text-amber-500 mx-auto" />
                       ) : row.rank === 2 ? (
@@ -92,13 +92,13 @@ export function LeaderboardPage() {
                     </td>
                     <td className="py-4 px-6 font-medium">
                       <div className="space-y-0.5">
-                        <p className="font-bold text-accent dark:text-white">{row.displayName}</p>
+                        <p className="font-bold text-accent dark:text-white font-raleway">{row.displayName}</p>
                         <p className="text-[10px] text-muted font-mono">{truncateAddress(row.walletAddress)}</p>
                       </div>
                     </td>
-                    <td className="py-4 px-6 text-center font-bold text-accent dark:text-white flex items-center justify-center gap-1 mt-3.5 border-none">
+                    <td className="py-4 px-6 text-center font-bold text-accent dark:text-white flex items-center justify-center gap-1 border-none mt-4">
                       <Star className="h-3.5 w-3.5 text-purple-500 fill-purple-500" />
-                      {row.xp.toLocaleString()}
+                      <span>{row.xp.toLocaleString()}</span>
                     </td>
                     <td className="py-4 px-6 text-center font-bold text-accent dark:text-white">{row.totalXlmStaked.toLocaleString()} XLM</td>
                     <td className="py-4 px-6 text-center">
