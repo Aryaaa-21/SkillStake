@@ -446,27 +446,10 @@ Every code push to GitHub executes automated jobs:
 
 To document on-chain interactions and gather user feedback, we monitor active testnet profiles.
 
-### Wallet Interactions (Real User Logs)
-
-| Wallet Address | Action | Transaction Hash / RPC Reference | Status |
-| :--- | :--- | :--- | :---: |
-| `GC3K...R5W2` | Connect Albedo Wallet | `0x5b3a...cf2e` | Success |
-| `GD9X...K8Z4` | Deploy 50 XLM Escrow (Clean Code Template) | `0x8c7e...3a1d` | Success |
-| `GA2Y...P6W9` | Submit Git Log Proof | `0x1f4b...9e8c` | Success |
-| `GB7W...M3Q1` | Cast Affirmative Validator Vote | `0x4e2d...7a5b` | Success |
-| `GC3K...R5W2` | Resolve Challenge (Refund Dispatched) | `0x9c8a...2e3f` | Success |
+[Google Form](https://forms.gle/uSnf8KdbRnkykvbp7)
 
 ### User Feedback Summary
-
-| Rating | Feedback | Implemented Improvement | Commit / Issue |
-| :---: | :--- | :--- | :---: |
-| ⭐️⭐️⭐️⭐️⭐️ | "The templates are great. I set up a fitness goal in 10 seconds." | Pre-configured template parameters. | `d5fd563` |
-| ⭐️⭐️⭐️⭐️ | "I wanted a clearer way to see my progress without doing math." | Added timeline trackers. | `4d3a332` |
-| ⭐️⭐️⭐️⭐️⭐️ | "The QR codes make it easy to share my achievements on mobile." | Programmed sharing modals. | `92c3375` |
-| ⭐️⭐️⭐️⭐️ | "I didn't know what to do when I first opened the page." | Programmed the Quick Start wizard. | `130cbee` |
-
-* **Google Form Link**: `[Stellar Community Feedback Form]`
-* **Excel Sheet Export**: `[Exported User Analytics Data]`
+[Excel responce sheet](https://docs.google.com/spreadsheets/d/1lA1DFy7vj93RZ1FnPv1SQFYcWRA1nLIPn6boy_juEUQ/edit?usp=sharing)
 
 ### Product Improvements Based On Feedback
 
